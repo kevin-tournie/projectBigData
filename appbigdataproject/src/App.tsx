@@ -3,9 +3,9 @@ import "./App.css";
 import { fetchingQuestionsAndAnswersFromOpenAI } from "./services/fetch";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [QRArray, setQRArray] = useState([]);
   useEffect(() => {
-    fetchingQuestionsAndAnswersFromOpenAI();
+    fetchingQuestionsAndAnswersFromOpenAI(setQRArray);
   }, []);
   return <div className="App"></div>;
 }
