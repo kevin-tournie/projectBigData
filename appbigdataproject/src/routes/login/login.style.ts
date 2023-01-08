@@ -25,6 +25,6 @@ export const WrapperTextFieldsAndButton = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 20%;
+  gap: 10px;
   width: 20%;
 `;

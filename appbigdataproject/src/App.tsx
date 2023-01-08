@@ -9,7 +9,13 @@ import { Preparation } from "./routes/preparation/preparation";
 import { Register } from "./routes/register/register";
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false, // default: true
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
