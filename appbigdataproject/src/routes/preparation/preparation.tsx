@@ -1,8 +1,7 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-import { Game } from "../game/game";
 import { Categories } from "./components/categories/categories";
 import { Difficulties } from "./components/difficulties/difficulties";
 import { WrapperSections, WrapperStart } from "./preparation.style";
@@ -12,6 +11,7 @@ export const Preparation = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>();
 
   const navigation = useNavigate();
+  const { userId } = useParams();
 
   return (
     <WrapperSections>
@@ -31,8 +31,11 @@ export const Preparation = () => {
           }
           onClick={(e) => {
             e.preventDefault();
-            navigation("/game", {
-              state: { selectedCategoryId, selectedDifficulty },
+            navigation(`/game/${userId}/play`, {
+              state: {
+                selectedCategoryId,
+                selectedDifficulty,
+              },
             });
           }}
         >

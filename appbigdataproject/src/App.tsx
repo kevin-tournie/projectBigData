@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes, Navigate } from "react-router";
 
 import { Game } from "./routes/game/game";
@@ -21,11 +21,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<NavBar />}>
-          <Route path="/home" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/preparation" element={<Preparation />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/game/:userId">
+            <Route path="/game/:userId/preparation" element={<Preparation />} />
+            <Route path="/game/:userId/play" element={<Game />} />
+          </Route>
           <Route path="/leaderboard" element={<LeaderBoard />} />
           <Route path="/*" element={<Navigate to="/login" />} />
           <Route path="" element={<Navigate to="/login" />} />

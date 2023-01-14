@@ -18,16 +18,11 @@ export const Login = () => {
   const handleConnection = async () => {
     const { data, error } = await supabase
       .from("Authentication")
-      .select("username, password")
+      .select("id, username")
       .eq("username", pseudo)
       .eq("password", password);
     if (!error) {
-      navigation("/preparation", {
-        state: {
-          pseudo,
-          password,
-        },
-      });
+      navigation(`/game/${data[0].id}/preparation`);
     }
   };
   return (

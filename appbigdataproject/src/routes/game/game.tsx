@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import {
   WrapperQuestion,
   WrapperCategory,
@@ -15,19 +15,17 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore, shuffleArray } from "../../services/utils";
+import { supabase } from "../../supabaseClient";
 
 export const Game = () => {
-  const [translation, setTranslation] = useState(0);
+  const [translation, setTranslation] = useState<number>(0);
+  const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
 
   const location = useLocation();
   const navigation = useNavigate();
-
-  useEffect(() => {
-    if (translation === -100) {
-      console.log("answers", answers);
-    }
-  }, [translation]);
+  const { userId } = useParams();
 
   const { data, isLoading, error } = useQuery("questions", () =>
     fetch(
@@ -49,16 +47,34 @@ export const Game = () => {
       })
   );
 
+  const handleSubmit = async () => {
+    const { error } = await supabase.from("Games").insert([
+      {
+        user_id: userId,
+        category: location.state.selectedCategoryId,
+        difficulty: location.state.selectedDifficulty.toLowerCase(),
+        score: computeScore(data.results, answers),
+      },
+    ]);
+    console.log(error);
+  };
+
+  useEffect(() => {
+    if (translation === -100) {
+      setScore(computeScore(data.results, answers));
+      handleSubmit();
+      setShowEndgame(true);
+    }
+  }, [translation]);
+
   if (isLoading) return <div>Loading</div>;
 
-  console.log(data);
+  if (error) return <div>Error</div>;
 
-  if (translation == -100)
+  if (showEndgame)
     return (
       <WrapperPostGame>
-        <WrapperScore>
-          Score : {computeScore(data.results, answers)}
-        </WrapperScore>
+        <WrapperScore>Score : {score}</WrapperScore>
         <Button
           variant="outlined"
           onClick={(e) => {
