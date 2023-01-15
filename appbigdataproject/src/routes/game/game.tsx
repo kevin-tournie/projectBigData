@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore, shuffleArray } from "../../services/utils";
 import { supabase } from "../../supabaseClient";
+import { MyMicrophone } from "../../components/microphone";
 
 export const Game = () => {
   const [translation, setTranslation] = useState<number>(0);
@@ -128,6 +129,7 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
+      <MyMicrophone />
     </WrapperGame>
   );
 };
