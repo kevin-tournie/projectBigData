@@ -1,18 +1,12 @@
 import { Button } from "@mui/material";
-import { useQuery } from "react-query";
 
 import { Title, WrapperButton, WrapperCategories } from "./categories.style";
 
 export const Categories = ({
+  data,
   selectedCategoryId,
   setSelectedCategoryId,
 }: any) => {
-  const { data, isLoading, error } = useQuery("categories", () =>
-    fetch("https://opentdb.com/api_category.php").then((data) => data.json())
-  );
-
-  if (isLoading) return <div>"Loading"</div>;
-
   return (
     <WrapperCategories>
       <Title>Select a category!</Title>

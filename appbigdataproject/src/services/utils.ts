@@ -11,3 +11,10 @@ export function computeScore(questions: any, answers: any) {
   });
   return score;
 }
+
+export function saveBlob(blob: any) {
+  var a = document.createElement("a");
+  const url = window.URL.createObjectURL(blob);
+  a.href = url;
+  a.click();
+}

@@ -17,6 +17,9 @@ import { Button } from "@mui/material";
 import { computeScore, shuffleArray } from "../../services/utils";
 import { supabase } from "../../supabaseClient";
 import { MyMicrophone } from "../../components/microphone";
+import { Loader, WrapperLoader } from "../../styles/global.style";
+
+const slideValue = 10;
 
 export const Game = () => {
   const [translation, setTranslation] = useState<number>(0);
@@ -61,14 +64,19 @@ export const Game = () => {
   };
 
   useEffect(() => {
-    if (translation === -100) {
+    if (translation === slideValue * -10) {
       setScore(computeScore(data.results, answers));
       handleSubmit();
       setShowEndgame(true);
     }
   }, [translation]);
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading)
+    return (
+      <WrapperLoader>
+        <Loader />
+      </WrapperLoader>
+    );
 
   if (error) return <div>Error</div>;
 
@@ -81,7 +89,7 @@ export const Game = () => {
           onClick={(e) => {
             e.preventDefault();
 
-            navigation("/preparation");
+            navigation("/game/" + userId + "/preparation");
           }}
         >
           Replay
@@ -111,7 +119,7 @@ export const Game = () => {
                           onClick={(e) => {
                             e.preventDefault();
 
-                            setTranslation((state) => (state -= 10));
+                            setTranslation((state) => (state -= slideValue));
                             setAnswers((state: string[]) => [...state, answer]);
                           }}
                         >

@@ -25,7 +25,7 @@ export const WrapperCategory = styled.div`
 export const WrapperOverflow = styled.div`
   display: flex;
   width: 600px;
-  min-height: 40%;
+  min-height: 50%;
   overflow-x: hidden;
   border-radius: 5px;
   box-shadow: 0px 5px 10px 5px rgba(133, 133, 133, 0.7);
@@ -33,8 +33,10 @@ export const WrapperOverflow = styled.div`
 
 export const WrapperCard = styled.div`
   display: flex;
-  min-width: 600px;
+  width: 600px;
+  max-width: 600px;
   gap: 100px;
+  padding: 15px;
   flex-direction: column;
   justify-content: center;
 `;
@@ -51,7 +53,6 @@ export const WrapperAnswers = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
-  grid-column-gap: 20px;
   grid-row-gap: 20px;
 `;
 
@@ -68,7 +69,7 @@ interface WrapperSliderProps {
 export const WrapperSlider = styled.div<WrapperSliderProps>`
   display: flex;
   flex-direction: row;
-  width: 1000%;
+  min-width: 1000%;
   transition: all 0.7s ease-in-out 0s;
   ${(props) => `transform: translateX(${props.translation}%)`}
 `;
@@ -78,7 +79,7 @@ export const WrapperPostGame = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
+  height: 100%;
   text-align: center;
   gap: 100px;
 `;

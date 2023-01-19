@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router";
+import { Loader, WrapperLoader } from "../../styles/global.style";
 
 import { Categories } from "./components/categories/categories";
 import { Difficulties } from "./components/difficulties/difficulties";
@@ -12,10 +14,24 @@ export const Preparation = () => {
 
   const navigation = useNavigate();
   const { userId } = useParams();
+  const queryClient = useQueryClient();
+  queryClient.removeQueries("questions");
+
+  const { data, isLoading, error } = useQuery("categories", () =>
+    fetch("https://opentdb.com/api_category.php").then((data) => data.json())
+  );
+
+  if (isLoading)
+    return (
+      <WrapperLoader>
+        <Loader />
+      </WrapperLoader>
+    );
 
   return (
     <WrapperSections>
       <Categories
+        data={data}
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}
       />

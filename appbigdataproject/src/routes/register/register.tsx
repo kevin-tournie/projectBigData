@@ -1,6 +1,7 @@
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 
 import {
@@ -18,17 +19,13 @@ export const Register = () => {
 
   const handleRegister = async () => {
     if (password === confirmPassword) {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("Authentication")
-        .insert({ username: pseudo, password });
-      if (error) {
-        console.log(error);
-      } else {
-        navigation("/preparation", {
-          state: {
-            pseudo,
-            password,
-          },
+        .insert({ username: pseudo, password })
+        .select("id");
+      if (!error) {
+        navigation(`/game/${data[0].id}/preparation`, {
+          state: { connected: true },
         });
       }
     }
@@ -63,6 +60,29 @@ export const Register = () => {
         >
           Sign up
         </Button>
+        <div
+          style={{
+            color: "#3C76D2",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "5px",
+          }}
+        >
+          <span>Already have an account ? </span>
+          <Link
+            to={"/login"}
+            style={{
+              textDecoration: "none",
+              textDecorationColor: "none",
+              color: "#1a4282",
+              fontWeight: "semi",
+            }}
+          >
+            Sign in
+          </Link>
+        </div>
       </WrapperTextFieldsAndButton>
     </WrapperLoginPage>
   );
