@@ -1,2 +1,8 @@
 # Ignore files with extension `.exe`
 *.exe
+
+en_dev_full_subset/
+en_test_full_subset/
+en_test_subset/
+en_train_full_subset/
+

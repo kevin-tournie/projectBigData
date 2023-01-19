@@ -8,18 +8,18 @@ from shutil import copyfile
 # path1 = "C:/Users/Simon/OneDrive/Documents/FISE3/Semestre 9/Spe-Info2-Big Data/Big Data Project/en/clips/"
 # C'est le path où se trouve l'ensemble des fichiers audio
 
-def creating_test_files_subset(path1):
+def creating_train_files_subset(path1):
     # Charger le fichier filtered_test.tsv en utilisant pandas
-    filtered_test_df = pd.read_csv('./tsv_files/filtered_test.tsv', sep='\t')
+    filtered_train_df = pd.read_csv('./tsv_files/filtered_train.tsv', sep='\t')
     # Définir le path3
-    path3 = './en_test_full_subset/'
+    path3 = './en_train_full_subset/'
 
     # Vérifier si le path3 existe, sinon le créer
     if not os.path.exists(path3):
         os.makedirs(path3)
 
     # Pour chaque ligne du fichier filtered_test.tsv
-    for index, row in filtered_test_df.iterrows():
+    for index, row in filtered_train_df.iterrows():
         # Récupérer le nom du fichier audio
         audio_file_name = row['path']
         # Construire le chemin complet du fichier audio dans path1
@@ -32,4 +32,4 @@ def creating_test_files_subset(path1):
             copyfile(source_path, destination_path)
         else:
             print(f"Le fichier {audio_file_name} n'existe pas dans {path1}")
-    return filtered_test_df
+    return filtered_train_df

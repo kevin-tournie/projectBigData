@@ -3,15 +3,13 @@ import pandas as pd
 from pydub import AudioSegment
 import speech_recognition as sr
 
-#Speech recognition supports WAV file format.
-def speechFileMP3ToText(MP3FilePathName):
+def speechFileMP3ToTextTrain(MP3FilePathName):
     file_name_without_extension = os.path.splitext(MP3FilePathName)[0]
 
     current_directory = os.path.basename(os.getcwd()) 
-
+    
     #On peut encore améliorer cette fonction!
-    #current_directory = "./" + current_directory + "/en_test_subset/"
-    current_directory = "./" + current_directory + "/en_test_full_subset/"
+    current_directory = "./" + current_directory + "/en_train_full_subset/"
 
     normalized_path = os.path.normpath(current_directory)
     directories = normalized_path.split(os.sep)
