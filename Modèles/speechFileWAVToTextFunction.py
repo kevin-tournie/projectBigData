@@ -15,8 +15,9 @@ def speechFileWAVToTextFunction(WAVFilePath):
         audio = r.record(source)
 
     #Reconnaissance de la parole
+    # Raises a ``speech_recognition.UnknownValueError`` exception if the speech is unintelligible. Raises a ``speech_recognition.RequestError`` exception if the speech recognition operation failed, if the key isn't valid, or if there is no internet connection.
     try:
-        return r.recognize_google(audio, language = "en-US")
+        return r.recognize_google(audio, language = "en-US", show_all=True)
     except sr.UnknownValueError:
         return sr.UnknownValueError
     except sr.RequestError as e:
