@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { useMemo } from "react";
 
 export const fetchQuestionAnswers = (location: any) => {
   const { data, isLoading, error } = useQuery("questions", () =>
