@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "../../services/supabaseClient";
 import { Title, Wrapper, WrapperTable } from "./leaderboard.style";
 
 interface IPlayerTotalScore {

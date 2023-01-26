@@ -2,13 +2,14 @@ import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import { Microphone } from "microphone-js";
 import { WrapperMicrophone } from "./microphone.style";
-import { useState } from "react";
-
-const mic = Microphone();
+import { useEffect, useState } from "react";
+import { uploadFile } from "../services/awsAPI";
 
 export const MyMicrophone = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [mic, setMic] = useState<MicrophoneInstance>(Microphone());
 
+  console.log(mic);
   return (
     <WrapperMicrophone onClick={() => setIsOpened(!isOpened)}>
       {isOpened ? (
@@ -18,8 +19,8 @@ export const MyMicrophone = () => {
             e.preventDefault();
             mic.stop();
             const blob = mic.getBlob();
-            console.log(blob);
-            mic.download();
+            console.log("uploading de blob to s3");
+            uploadFile(blob, "test.wav");
           }}
         />
       ) : (

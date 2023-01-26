@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore, shuffleArray } from "../../services/utils";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "../../services/supabaseClient";
 import { MyMicrophone } from "../../components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 

@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "../../services/supabaseClient";
 
 import {
   Title,
