@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { supabase } from "../../services/supabaseClient";
+import { handleConnectionSupabase, supabase } from "../../services/supabase";
 
 import {
   Title,
@@ -16,18 +16,6 @@ export const Login = () => {
 
   const navigation = useNavigate();
 
-  const handleConnection = async () => {
-    const { data, error } = await supabase
-      .from("Authentication")
-      .select("id")
-      .eq("username", pseudo)
-      .eq("password", password);
-    if (!error) {
-      navigation(`/game/${data[0].id}/preparation`, {
-        state: { connected: true },
-      });
-    }
-  };
   return (
     <WrapperLoginPage>
       <Title>The Big Neural Quiz</Title>
@@ -47,7 +35,7 @@ export const Login = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            handleConnection();
+            handleConnectionSupabase(pseudo, password, navigation);
           }}
         >
           Sign in
