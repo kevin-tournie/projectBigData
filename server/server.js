@@ -13,6 +13,7 @@ const __dirname = path.resolve();
 app.use(cors());
 
 app.post("/api/processAudio", (req, res) => {
+  console.log("Reached server.");
   req.on("data", (data) => {
     let chunk = data;
     if (chunk !== null) {

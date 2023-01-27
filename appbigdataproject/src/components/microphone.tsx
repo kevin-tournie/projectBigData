@@ -9,7 +9,7 @@ export const MyMicrophone = ({ setText }: any) => {
   const [mic, setMic] = useState<MicrophoneInstance>(Microphone());
 
   const handleSubmit = async (blob: Blob) => {
-    const data = await fetch("http://localhost:5000/api/processAudio", {
+    const data = await fetch("http://18.234.129.100:5000/api/processAudio", {
       method: "POST",
       body: blob,
       headers: {
