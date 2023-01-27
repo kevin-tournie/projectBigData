@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore } from "../../services/utils";
-import { sendEndgameResults } from "../../services/supabase";
+import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "../../components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 import { fetchQuestionsAnswers } from "../../services/trivia";
@@ -42,7 +42,7 @@ export const Game = () => {
       const endgameScore = computeScore(data.results, answers);
       setScore(endgameScore);
 
-      sendEndgameResults(
+      sendEndgameResultsSupabase(
         userId || "unknown",
         location.state.selectedCategoryId,
         location.state.selectedDifficulty,
