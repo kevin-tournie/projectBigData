@@ -26,6 +26,7 @@ export const Game = () => {
   const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [text, setText] = useState<string>("");
 
   const location = useLocation();
   const navigation = useNavigate();
@@ -137,7 +138,8 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
-      <MyMicrophone />
+      <MyMicrophone setText={setText} />
+      {text}
     </WrapperGame>
   );
 };
