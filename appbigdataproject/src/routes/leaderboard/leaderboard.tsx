@@ -8,14 +8,11 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { supabase } from "../../services/supabaseClient";
+import {
+  computerScoresSupabase,
+  IPlayerTotalScore,
+} from "../../services/supabase";
 import { Title, Wrapper, WrapperTable } from "./leaderboard.style";
-
-interface IPlayerTotalScore {
-  userId: number;
-  username: string;
-  totalScore: number;
-}
 
 export const LeaderBoard = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,44 +20,9 @@ export const LeaderBoard = () => {
     IPlayerTotalScore[]
   >([]);
 
-  const getScores = async () => {
-    let totalScoresPerPlayer: IPlayerTotalScore[] = [];
-
-    const { data: dataGames, error: errorGames } = await supabase
-      .from("Games")
-      .select("user_id, score");
-    const { data: dataUsernames, error: errorUsernames } = await supabase
-      .from("Authentication")
-      .select("id, username");
-
-    if (!errorUsernames) {
-      for (let dataUsername of dataUsernames) {
-        totalScoresPerPlayer.push({
-          userId: dataUsername.id,
-          username: dataUsername.username,
-          totalScore: 0,
-        });
-      }
-    }
-
-    if (!errorGames) {
-      for (let game of dataGames) {
-        for (let player of totalScoresPerPlayer) {
-          if (game.user_id === player.userId) {
-            player.totalScore += game.score;
-          }
-        }
-      }
-      totalScoresPerPlayer.sort(
-        (player1, player2) => player2.totalScore - player1.totalScore
-      );
-      setDataScoresPerPlayer(totalScoresPerPlayer);
-    }
-  };
-
   useEffect(() => {
     setLoading(true);
-    getScores();
+    computerScoresSupabase(setDataScoresPerPlayer);
     setLoading(false);
   }, []);
 

@@ -14,10 +14,11 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { computeScore, shuffleArray } from "../../services/utils";
-import { supabase } from "../../services/supabaseClient";
+import { computeScore } from "../../services/utils";
+import { sendEndgameResults } from "../../services/supabase";
 import { MyMicrophone } from "../../components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
+import { fetchQuestionsAnswers } from "../../services/trivia";
 
 const slideValue = 10;
 
@@ -33,41 +34,20 @@ export const Game = () => {
   const { userId } = useParams();
 
   const { data, isLoading, error } = useQuery("questions", () =>
-    fetch(
-      "https://opentdb.com/api.php?amount=10&category=" +
-        location.state.selectedCategoryId +
-        "&difficulty=" +
-        location.state.selectedDifficulty.toLowerCase() +
-        "&type=multiple"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        data.results.forEach((question: any) => {
-          question.shuffledAnswers = shuffleArray([
-            question.correct_answer,
-            ...question.incorrect_answers,
-          ]);
-        });
-        return data;
-      })
+    fetchQuestionsAnswers(location)
   );
-
-  const handleSubmit = async () => {
-    const { error } = await supabase.from("Games").insert([
-      {
-        user_id: userId,
-        category: location.state.selectedCategoryId,
-        difficulty: location.state.selectedDifficulty.toLowerCase(),
-        score: computeScore(data.results, answers),
-      },
-    ]);
-    console.log(error);
-  };
 
   useEffect(() => {
     if (translation === slideValue * -10) {
-      setScore(computeScore(data.results, answers));
-      handleSubmit();
+      const endgameScore = computeScore(data.results, answers);
+      setScore(endgameScore);
+
+      sendEndgameResults(
+        userId || "unknown",
+        location.state.selectedCategoryId,
+        location.state.selectedDifficulty,
+        endgameScore
+      );
       setShowEndgame(true);
     }
   }, [translation]);
@@ -89,7 +69,6 @@ export const Game = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-
             navigation("/game/" + userId + "/preparation");
           }}
         >

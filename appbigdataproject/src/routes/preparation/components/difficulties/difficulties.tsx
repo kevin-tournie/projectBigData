@@ -1,12 +1,10 @@
 import { Button } from "@mui/material";
-import { useQuery } from "react-query";
+import { difficulties } from "../../../../const";
 import {
   Title,
   WrapperButton,
   WrapperDifficulties,
 } from "./difficulties.style";
-
-const difficulties = ["Easy", "Medium", "hard"];
 
 export const Difficulties = ({
   selectedDifficulty,
