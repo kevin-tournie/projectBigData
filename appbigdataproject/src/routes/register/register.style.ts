@@ -18,7 +18,8 @@ export const Title = styled.div`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 50px;
+  margin: 20px 0px 20px 50px;
+  text-align: center;
 `;
 
 export const WrapperTextFieldsAndButton = styled.div`

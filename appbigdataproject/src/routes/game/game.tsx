@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore, shuffleArray } from "../../services/utils";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "../../services/supabaseClient";
 import { MyMicrophone } from "../../components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 
@@ -26,6 +26,7 @@ export const Game = () => {
   const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [text, setText] = useState<string>("");
 
   const location = useLocation();
   const navigation = useNavigate();
@@ -137,7 +138,8 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
-      <MyMicrophone />
+      <MyMicrophone setText={setText} />
+      {text}
     </WrapperGame>
   );
 };
