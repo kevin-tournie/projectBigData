@@ -20,17 +20,24 @@ export const MyMicrophone = ({
   const [showButtons, setShowButtons] = useState<boolean>(false);
   const [interrupt, setInterrupt] = useState<boolean>(false);
   const [timer, setTimer] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleMicStop = () => {
+    setErrorMessage("");
     mic.stop();
     const blob = mic.getBlob();
     mic.reset();
     if (blob?.size) {
       processAudio(blob).then((text) => {
-        setText(text);
-        setBlob(blob);
-        setShowButtons(true);
-        setAnsweredButton(text.trim().toUpperCase() + "button");
+        if (text === "Could not recognize the word") {
+          setInterrupt(true);
+          setErrorMessage(text);
+        } else {
+          setText(text);
+          setBlob(blob);
+          setShowButtons(true);
+          setAnsweredButton(text.trim().toUpperCase() + "button");
+        }
       });
     }
   };
@@ -52,6 +59,7 @@ export const MyMicrophone = ({
             setTranslation((state: number) => (state -= slideValue));
             setAnswers((state: string[]) => [...state, text]);
             setInterrupt(false);
+            setErrorMessage("");
           }
           setAnsweredButton("");
           setShowButtons(false);
@@ -62,6 +70,7 @@ export const MyMicrophone = ({
   }, [text]);
   return (
     <>
+      {errorMessage}
       <WrapperMicrophone onClick={() => setIsOpened(!isOpened)}>
         {isOpened ? (
           <MicIcon
