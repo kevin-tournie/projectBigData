@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import {
   WrapperQuestion,
   WrapperCategory,
@@ -14,57 +14,60 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { computeScore, shuffleArray } from "../../services/utils";
+import { computeScore } from "../../services/utils";
+import { sendEndgameResultsSupabase } from "../../services/supabase";
+import { MyMicrophone } from "./components/microphone";
+import { Loader, WrapperLoader } from "../../styles/global.style";
+import { fetchQuestionsAnswers } from "../../services/trivia";
+import { slideValue } from "../../const";
 
 export const Game = () => {
-  const [translation, setTranslation] = useState(0);
+  const [translation, setTranslation] = useState<number>(0);
+  const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
 
   const location = useLocation();
   const navigation = useNavigate();
+  const { userId } = useParams();
+
+  const { data, isLoading, error } = useQuery("questions", () =>
+    fetchQuestionsAnswers(location)
+  );
 
   useEffect(() => {
-    if (translation === -100) {
-      console.log("answers", answers);
+    if (translation === slideValue * -10) {
+      const endgameScore = computeScore(data.results, answers);
+      setScore(endgameScore);
+
+      sendEndgameResultsSupabase(
+        userId || "unknown",
+        location.state.selectedCategoryId,
+        location.state.selectedDifficulty,
+        endgameScore
+      );
+      setShowEndgame(true);
     }
   }, [translation]);
 
-  const { data, isLoading, error } = useQuery("questions", () =>
-    fetch(
-      "https://opentdb.com/api.php?amount=10&category=" +
-        location.state.selectedCategoryId +
-        "&difficulty=" +
-        location.state.selectedDifficulty.toLowerCase() +
-        "&type=multiple"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        data.results.forEach((question: any) => {
-          question.shuffledAnswers = shuffleArray([
-            question.correct_answer,
-            ...question.incorrect_answers,
-          ]);
-        });
-        return data;
-      })
-  );
+  if (isLoading)
+    return (
+      <WrapperLoader>
+        <Loader />
+      </WrapperLoader>
+    );
 
-  if (isLoading) return <div>Loading</div>;
+  if (error) return <div>Error</div>;
 
-  console.log(data);
-
-  if (translation == -100)
+  if (showEndgame)
     return (
       <WrapperPostGame>
-        <WrapperScore>
-          Score : {computeScore(data.results, answers)}
-        </WrapperScore>
+        <WrapperScore>Score : {score}</WrapperScore>
         <Button
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-
-            navigation("/preparation");
+            navigation("/game/" + userId + "/preparation");
           }}
         >
           Replay
@@ -94,7 +97,7 @@ export const Game = () => {
                           onClick={(e) => {
                             e.preventDefault();
 
-                            setTranslation((state) => (state -= 10));
+                            setTranslation((state) => (state -= slideValue));
                             setAnswers((state: string[]) => [...state, answer]);
                           }}
                         >
@@ -112,6 +115,7 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
+      <MyMicrophone />
     </WrapperGame>
   );
 };

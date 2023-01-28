@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useQuery, useQueryClient } from "react-query";
+import { useNavigate, useParams } from "react-router";
+import { Loader, WrapperLoader } from "../../styles/global.style";
 
-import { Game } from "../game/game";
 import { Categories } from "./components/categories/categories";
 import { Difficulties } from "./components/difficulties/difficulties";
 import { WrapperSections, WrapperStart } from "./preparation.style";
@@ -12,10 +13,25 @@ export const Preparation = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>();
 
   const navigation = useNavigate();
+  const { userId } = useParams();
+  const queryClient = useQueryClient();
+  queryClient.removeQueries("questions");
+
+  const { data, isLoading, error } = useQuery("categories", () =>
+    fetch("https://opentdb.com/api_category.php").then((data) => data.json())
+  );
+
+  if (isLoading)
+    return (
+      <WrapperLoader>
+        <Loader />
+      </WrapperLoader>
+    );
 
   return (
     <WrapperSections>
       <Categories
+        data={data}
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}
       />
@@ -31,8 +47,11 @@ export const Preparation = () => {
           }
           onClick={(e) => {
             e.preventDefault();
-            navigation("/game", {
-              state: { selectedCategoryId, selectedDifficulty },
+            navigation(`/game/${userId}/play`, {
+              state: {
+                selectedCategoryId,
+                selectedDifficulty,
+              },
             });
           }}
         >

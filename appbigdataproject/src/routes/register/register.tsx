@@ -1,7 +1,8 @@
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { supabase } from "../../supabaseClient";
+import { Link } from "react-router-dom";
+import { handleRegisterSupabase } from "../../services/supabase";
 
 import {
   Title,
@@ -16,23 +17,6 @@ export const Register = () => {
 
   const navigation = useNavigate();
 
-  const handleRegister = async () => {
-    if (password === confirmPassword) {
-      const { error } = await supabase
-        .from("Authentication")
-        .insert({ username: pseudo, password });
-      if (error) {
-        console.log(error);
-      } else {
-        navigation("/preparation", {
-          state: {
-            pseudo,
-            password,
-          },
-        });
-      }
-    }
-  };
   return (
     <WrapperLoginPage>
       <Title>The Big Neural Quiz</Title>
@@ -58,11 +42,39 @@ export const Register = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            handleRegister();
+            handleRegisterSupabase(
+              pseudo,
+              password,
+              confirmPassword,
+              navigation
+            );
           }}
         >
           Sign up
         </Button>
+        <div
+          style={{
+            color: "#3C76D2",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "5px",
+          }}
+        >
+          <span>Already have an account ? </span>
+          <Link
+            to={"/login"}
+            style={{
+              textDecoration: "none",
+              textDecorationColor: "none",
+              color: "#1a4282",
+              fontWeight: "semi",
+            }}
+          >
+            Sign in
+          </Link>
+        </div>
       </WrapperTextFieldsAndButton>
     </WrapperLoginPage>
   );
