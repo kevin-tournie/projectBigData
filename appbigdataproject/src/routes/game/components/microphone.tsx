@@ -3,9 +3,11 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import { Microphone } from "microphone-js";
 import { WrapperMicrophone } from "./microphone.style";
 import { useState } from "react";
-import { processAudio } from "../../../services/backend";
 import { Button } from "@mui/material";
-import { uploadFileToS3Bucket } from "../../../services/S3";
+import { useLocation } from "react-router";
+
+import { processAudio } from "../../../services/backend";
+import { uploadFileToBucketSupabase } from "../../../services/supabase";
 
 export const MyMicrophone = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -15,6 +17,7 @@ export const MyMicrophone = () => {
   const [showPredictionAndButton, setShowPredictionAndButton] =
     useState<boolean>(false);
 
+  const location = useLocation();
   return (
     <>
       <WrapperMicrophone onClick={() => setIsOpened(!isOpened)}>
@@ -26,10 +29,8 @@ export const MyMicrophone = () => {
               mic.stop();
               const blob = mic.getBlob();
               mic.reset();
-              // console.log("uploading de blob to s3", blob?.size);
               if (blob?.size) {
                 const text = await processAudio(blob);
-                console.log(text);
                 setText(text);
                 setBlob(blob);
                 setShowPredictionAndButton(true);
@@ -53,7 +54,11 @@ export const MyMicrophone = () => {
             onClick={() => {
               const filename: string =
                 text.trim() + new Date().getTime().toString() + ".wav";
-              uploadFileToS3Bucket(blob, filename, text);
+              uploadFileToBucketSupabase(
+                blob,
+                filename,
+                location.state.session.user.id
+              );
               setShowPredictionAndButton(false);
             }}
           >

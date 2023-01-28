@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { useNavigate } from "react-router";
 
 export interface IPlayerTotalScore {
   userId: number;
@@ -11,39 +12,42 @@ export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_KEY || ""
 );
 
-export const handleConnectionSupabase = async (
-  pseudo: string,
+export const signUpWithEmail = async (
+  email: string,
   password: string,
   navigation: any
 ) => {
-  const { data, error } = await supabase
-    .from("Authentication")
-    .select("id")
-    .eq("username", pseudo)
-    .eq("password", password);
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
   if (!error) {
-    navigation(`/game/${data[0].id}/preparation`, {
-      state: { connected: true },
+    navigation(`/game/${data.user?.id}/preparation`, {
+      state: { session: data.session },
     });
   }
 };
 
-export const handleRegisterSupabase = async (
-  pseudo: string,
+export const signInWithEmail = async (
+  email: string,
   password: string,
-  confirmPassword: string,
   navigation: any
 ) => {
-  if (password === confirmPassword) {
-    const { data, error } = await supabase
-      .from("Authentication")
-      .insert({ username: pseudo, password })
-      .select("id");
-    if (!error) {
-      navigation(`/game/${data[0].id}/preparation`, {
-        state: { connected: true },
-      });
-    }
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (!error) {
+    navigation(`/game/${data.user?.id}/preparation`, {
+      state: { session: data.session },
+    });
+  }
+};
+
+export const signOut = async (navigation: any) => {
+  const { error } = await supabase.auth.signOut();
+  if (!error) {
+    navigation(`/login`);
   }
 };
 
@@ -97,4 +101,15 @@ export const computerScoresSupabase = async (setDataScoresPerPlayer: any) => {
     );
     setDataScoresPerPlayer(totalScoresPerPlayer);
   }
+};
+
+export const uploadFileToBucketSupabase = async (
+  file: Blob,
+  filename: string,
+  userId: any
+) => {
+  const { error } = await supabase.storage
+    .from("quizbucket")
+    .upload(`${userId}/${filename}`, file);
+  console.log(error);
 };

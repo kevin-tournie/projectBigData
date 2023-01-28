@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { handleRegisterSupabase } from "../../services/supabase";
+import { signUpWithEmail } from "../../services/supabase";
 
 import {
   Title,
@@ -13,7 +13,6 @@ import {
 export const Register = () => {
   const [pseudo, setPseudo] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const navigation = useNavigate();
 
@@ -32,22 +31,11 @@ export const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <TextField
-          label="Confirm password"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
         <Button
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            handleRegisterSupabase(
-              pseudo,
-              password,
-              confirmPassword,
-              navigation
-            );
+            signUpWithEmail(pseudo, password, navigation);
           }}
         >
           Sign up

@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { handleConnectionSupabase, supabase } from "../../services/supabase";
+import { signInWithEmail } from "../../services/supabase";
 
 import {
   Title,
@@ -35,7 +35,7 @@ export const Login = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            handleConnectionSupabase(pseudo, password, navigation);
+            signInWithEmail(pseudo, password, navigation);
           }}
         >
           Sign in

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 
 import { Categories } from "./components/categories/categories";
@@ -12,6 +12,7 @@ export const Preparation = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>();
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>();
 
+  const location = useLocation();
   const navigation = useNavigate();
   const { userId } = useParams();
   const queryClient = useQueryClient();
@@ -49,6 +50,7 @@ export const Preparation = () => {
             e.preventDefault();
             navigation(`/game/${userId}/play`, {
               state: {
+                ...location.state,
                 selectedCategoryId,
                 selectedDifficulty,
               },
