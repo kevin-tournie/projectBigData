@@ -6,11 +6,10 @@ export const fetchQuestionsAnswers = async (location: any) => {
       location.state.selectedCategoryId +
       "&difficulty=" +
       location.state.selectedDifficulty.toLowerCase() +
-      "&type=multiple"
+      "&type=boolean"
   )
     .then((data) => data.json())
     .then((data) => {
-      console.log(data);
       data.results.forEach((question: any) => {
         question.shuffledAnswers = shuffleArray([
           question.correct_answer,

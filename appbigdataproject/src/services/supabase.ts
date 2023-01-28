@@ -65,7 +65,7 @@ export const sendEndgameResultsSupabase = async (
       score,
     },
   ]);
-  console.log(error);
+  if (error) console.log(error);
 };
 
 export const computerScoresSupabase = async (setDataScoresPerPlayer: any) => {
@@ -111,5 +111,5 @@ export const uploadFileToBucketSupabase = async (
   const { error } = await supabase.storage
     .from("quizbucket")
     .upload(`${userId}/${filename}`, file);
-  console.log(error);
+  if (error) console.log(error);
 };

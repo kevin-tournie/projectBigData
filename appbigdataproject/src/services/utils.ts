@@ -11,3 +11,7 @@ export function computeScore(questions: any, answers: any) {
   });
   return score;
 }
+
+export function timeout(delay: number) {
+  return new Promise((res) => setTimeout(res, delay));
+}
