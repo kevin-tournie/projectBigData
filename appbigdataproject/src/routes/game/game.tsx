@@ -26,6 +26,7 @@ export const Game = () => {
   const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [answeredButton, setAnsweredButton] = useState<any>("");
 
   const location = useLocation();
   const navigation = useNavigate();
@@ -90,24 +91,33 @@ export const Game = () => {
                 </WrapperQuestion>
                 <WrapperAnswers>
                   {question.shuffledAnswers.map(
-                    (answer: string, index: number) => (
-                      <WrapperAnswer>
-                        <Button
-                          variant="outlined"
-                          onClick={(e) => {
-                            e.preventDefault();
-
-                            setTranslation((state) => (state -= slideValue));
-                            setAnswers((state: string[]) => [...state, answer]);
-                          }}
-                        >
-                          {index + 1}){" "}
-                          {answer
-                            .replaceAll(/&quot;/g, '"')
-                            .replaceAll(/&#039;/g, "'")}
-                        </Button>
-                      </WrapperAnswer>
-                    )
+                    (answer: string, index: number) => {
+                      const buttonText =
+                        answer === "True"
+                          ? "Yes"
+                          : answer === "False"
+                          ? "No"
+                          : index +
+                            1 +
+                            ") " +
+                            answer
+                              .replaceAll(/&quot;/g, '"')
+                              .replaceAll(/&#039;/g, "'");
+                      return (
+                        <WrapperAnswer>
+                          <Button
+                            variant={
+                              answeredButton ===
+                              buttonText.trim().toUpperCase() + "button"
+                                ? "contained"
+                                : "outlined"
+                            }
+                          >
+                            {buttonText}
+                          </Button>
+                        </WrapperAnswer>
+                      );
+                    }
                   )}
                 </WrapperAnswers>
               </WrapperCard>
@@ -115,7 +125,11 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
-      <MyMicrophone />
+      <MyMicrophone
+        setTranslation={setTranslation}
+        setAnswers={setAnswers}
+        setAnsweredButton={setAnsweredButton}
+      />
     </WrapperGame>
   );
 };
