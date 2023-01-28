@@ -11,7 +11,7 @@ import {
 } from "./register.style";
 
 export const Register = () => {
-  const [pseudo, setPseudo] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const navigation = useNavigate();
@@ -21,9 +21,9 @@ export const Register = () => {
       <Title>The Big Neural Quiz</Title>
       <WrapperTextFieldsAndButton>
         <TextField
-          label="Pseudo"
-          value={pseudo}
-          onChange={(e) => setPseudo(e.target.value)}
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           label="Password"
@@ -35,7 +35,7 @@ export const Register = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            signUpWithEmail(pseudo, password, navigation);
+            signUpWithEmail(email, password, navigation);
           }}
         >
           Sign up
