@@ -16,18 +16,16 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { computeScore } from "../../services/utils";
 import { sendEndgameResultsSupabase } from "../../services/supabase";
-import { MyMicrophone } from "../../components/microphone";
+import { MyMicrophone } from "./components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 import { fetchQuestionsAnswers } from "../../services/trivia";
-
-const slideValue = 10;
+import { slideValue } from "../../const";
 
 export const Game = () => {
   const [translation, setTranslation] = useState<number>(0);
   const [showEndgame, setShowEndgame] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
-  const [text, setText] = useState<string>("");
 
   const location = useLocation();
   const navigation = useNavigate();
@@ -117,8 +115,7 @@ export const Game = () => {
           })}
         </WrapperSlider>
       </WrapperOverflow>
-      <MyMicrophone setText={setText} />
-      {text}
+      <MyMicrophone />
     </WrapperGame>
   );
 };

@@ -1,7 +1,6 @@
 import express from "express";
 import { spawn } from "child_process";
 import cors from "cors";
-import { uploadFileToBucket } from "./services/aws.js";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
