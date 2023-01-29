@@ -1,5 +1,5 @@
 export const processAudio = async (blob: Blob) => {
-  const data = await fetch("http://54.237.64.201:5000/api/processAudio", {
+  const data = await fetch("https://54.237.64.201:5000/api/processAudio", {
     method: "POST",
     body: blob,
     headers: {
