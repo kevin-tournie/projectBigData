@@ -31,6 +31,9 @@ app.post("/api/processAudio", (req, res) => {
     });
     fs.unlinkSync(path.resolve(__dirname, "test.wav"));
   });
+  python.on("close", (code) => {
+    console.log("closed", code);
+  });
 });
 
 app.listen(5000, () => {
