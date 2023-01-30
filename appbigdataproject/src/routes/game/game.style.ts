@@ -96,3 +96,16 @@ export const WrapperScore = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
+
+export const WrapperQuizProgress = styled.div`
+  display: inline-block;
+  background-image: linear-gradient(
+    90deg,
+    rgba(208, 205, 41, 1) 0%,
+    rgba(200, 29, 30, 1) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 15px;
+`;

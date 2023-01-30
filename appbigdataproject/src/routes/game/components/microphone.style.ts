@@ -17,3 +17,26 @@ export const WrapperMicrophone = styled.div`
     filter: brightness(10%);
   }
 `;
+
+export const TimeLeftBar = styled.div`
+  height: 10px;
+  width: 100%;
+  animation: timeLeftBar 5s linear;
+  background-color: #72b8ed;
+  margin-bottom: 5px;
+  @keyframes timeLeftBar {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+`;
+
+export const WrapperButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;

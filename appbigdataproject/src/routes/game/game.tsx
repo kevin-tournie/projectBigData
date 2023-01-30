@@ -11,6 +11,7 @@ import {
   WrapperCard,
   WrapperPostGame,
   WrapperScore,
+  WrapperQuizProgress,
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
@@ -79,6 +80,9 @@ export const Game = () => {
   return (
     <WrapperGame>
       <WrapperCategory>{data.results[0].category}</WrapperCategory>
+      <WrapperQuizProgress>{`${
+        translation * -0.1 + 1
+      } / 10`}</WrapperQuizProgress>
       <WrapperOverflow>
         <WrapperSlider translation={translation}>
           {data.results.map((question: any) => {
