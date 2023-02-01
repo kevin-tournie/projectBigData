@@ -1,8 +1,9 @@
+import { maxQuestions } from "../const";
 import { shuffleArray } from "./utils";
 
 export const fetchQuestionsAnswers = async (location: any) => {
   const result = await fetch(
-    "https://opentdb.com/api.php?amount=10&category=" +
+    `https://opentdb.com/api.php?amount=${maxQuestions}&category=` +
       location.state.selectedCategoryId +
       "&difficulty=" +
       location.state.selectedDifficulty.toLowerCase() +
@@ -16,6 +17,15 @@ export const fetchQuestionsAnswers = async (location: any) => {
           ...question.incorrect_answers,
         ]);
       });
+      return data;
+    });
+  return result;
+};
+
+export const fetchAllCategories = async () => {
+  const result = await fetch("https://opentdb.com/api_category.php")
+    .then((data) => data.json())
+    .then((data) => {
       return data;
     });
   return result;

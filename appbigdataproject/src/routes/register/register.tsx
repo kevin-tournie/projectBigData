@@ -1,8 +1,9 @@
 import { TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { signUpWithEmail } from "../../services/supabase";
+import { AuthContext } from "../../userContext";
 
 import {
   Title,
@@ -15,7 +16,7 @@ export const Register = () => {
   const [password, setPassword] = useState<string>("");
 
   const navigation = useNavigate();
-
+  const { setUserId } = useContext(AuthContext);
   return (
     <WrapperLoginPage>
       <Title>The Big Neural Quiz</Title>
@@ -35,7 +36,7 @@ export const Register = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            signUpWithEmail(email, password, navigation);
+            signUpWithEmail(email, password, navigation, setUserId);
           }}
         >
           Sign up
