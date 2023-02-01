@@ -1,6 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { useNavigate } from "react-router";
-
 export interface IPlayerTotalScore {
   userId: number;
   username: string;
@@ -15,32 +13,32 @@ export const supabase = createClient(
 export const signUpWithEmail = async (
   email: string,
   password: string,
-  navigation: any
+  navigation: any,
+  setUserId: any
 ) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
   if (!error) {
-    navigation(`/game/${data.user?.id}/preparation`, {
-      state: { session: data.session },
-    });
+    setUserId(data.user?.id);
+    navigation(`/${data.user?.id}/personalStats`);
   }
 };
 
 export const signInWithEmail = async (
   email: string,
   password: string,
-  navigation: any
+  navigation: any,
+  setUserId: any
 ) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
   if (!error) {
-    navigation(`/game/${data.user?.id}/preparation`, {
-      state: { session: data.session },
-    });
+    setUserId(data.user?.id);
+    navigation(`/${data.user?.id}/personalStats`);
   }
 };
 
@@ -51,17 +49,27 @@ export const signOut = async (navigation: any) => {
   }
 };
 
+export const getUserHistorySupabase = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("Game")
+    .select("created_at, category_id, difficulty, score")
+    .eq("user_id", userId);
+  if (!error) {
+    return data;
+  }
+};
+
 export const sendEndgameResultsSupabase = async (
   userId: string,
   selectedCategoryId: number,
   selectedDifficulty: string,
   score: number
 ) => {
-  const { error } = await supabase.from("Games").insert([
+  const { error } = await supabase.from("Game").insert([
     {
       user_id: userId,
-      category: selectedCategoryId,
-      difficulty: selectedDifficulty.toLowerCase(),
+      category_id: selectedCategoryId,
+      difficulty: selectedDifficulty,
       score,
     },
   ]);
@@ -72,7 +80,7 @@ export const computerScoresSupabase = async (setDataScoresPerPlayer: any) => {
   let totalScoresPerPlayer: IPlayerTotalScore[] = [];
 
   const { data: dataGames, error: errorGames } = await supabase
-    .from("Games")
+    .from("Game")
     .select("user_id, score");
   const { data: dataUsernames, error: errorUsernames } = await supabase
     .from("Authentication")

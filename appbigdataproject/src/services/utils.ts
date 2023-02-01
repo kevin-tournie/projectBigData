@@ -5,7 +5,9 @@ export function shuffleArray(array: any) {
 export function computeScore(questions: any, answers: any) {
   let score = 0;
   questions.forEach((question: any, index: number) => {
-    if (question.correct_answer === answers[index]) {
+    if (
+      question.correct_answer.toLowerCase() === answers[index].toLowerCase()
+    ) {
       score += 1;
     }
   });

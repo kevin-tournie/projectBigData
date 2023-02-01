@@ -20,7 +20,7 @@ import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "./components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 import { fetchQuestionsAnswers } from "../../services/trivia";
-import { slideValue } from "../../const";
+import { maxQuestions, slideValue } from "../../const";
 
 export const Game = () => {
   const [translation, setTranslation] = useState<number>(0);
@@ -38,7 +38,7 @@ export const Game = () => {
   );
 
   useEffect(() => {
-    if (translation === slideValue * -10) {
+    if (translation === slideValue * -1 * maxQuestions) {
       const endgameScore = computeScore(data.results, answers);
       setScore(endgameScore);
 
@@ -69,7 +69,7 @@ export const Game = () => {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            navigation("/game/" + userId + "/preparation");
+            navigation("../game/preparation");
           }}
         >
           Replay
@@ -82,7 +82,7 @@ export const Game = () => {
       <WrapperCategory>{data.results[0].category}</WrapperCategory>
       <WrapperQuizProgress>{`${
         translation * -0.1 + 1
-      } / 10`}</WrapperQuizProgress>
+      } / ${maxQuestions}`}</WrapperQuizProgress>
       <WrapperOverflow>
         <WrapperSlider translation={translation}>
           {data.results.map((question: any) => {

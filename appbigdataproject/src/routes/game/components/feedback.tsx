@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
-import { useLocation } from "react-router";
+import { useContext } from "react";
 import { uploadFileToBucketSupabase } from "../../../services/supabase";
+import { AuthContext } from "../../../userContext";
 import { TimeLeftBar, WrapperButtons } from "./microphone.style";
 
 export const Feedback = ({ text, blob, setInterrupt }: any) => {
-  const location = useLocation();
-
+  const { user_id } = useContext(AuthContext);
   return (
     <div>
       <TimeLeftBar />
@@ -25,11 +25,7 @@ export const Feedback = ({ text, blob, setInterrupt }: any) => {
             setInterrupt(false);
             const filename: string =
               text.trim() + new Date().getTime().toString() + ".wav";
-            uploadFileToBucketSupabase(
-              blob,
-              filename,
-              location.state.session.user.id
-            );
+            uploadFileToBucketSupabase(blob, filename, user_id);
           }}
         >
           Good prediction
