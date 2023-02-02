@@ -15,11 +15,11 @@ export const PersonalStats = () => {
   const { data, isLoading, error } = useQuery("personalStats", () =>
     getUserHistorySupabase(userId || "unknown")
   );
+  const navigation = useNavigate();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
-  const navigation = useNavigate();
   return (
     <div style={{ margin: "20px", position: "relative" }}>
       <h2>Personal Stats</h2>
