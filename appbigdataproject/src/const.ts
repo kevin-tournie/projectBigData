@@ -1,7 +1,7 @@
 export const difficulties = ["Easy", "Medium", "hard"];
 
 export const slideValue = 10;
-export const maxQuestions = 5;
+export const maxQuestions = 10;
 
 export interface ICategory {
   id: number;
