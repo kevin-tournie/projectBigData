@@ -86,46 +86,45 @@ export const Game = () => {
       </WrapperPostGame>
     );
 
-  if (data !== undefined)
-    return (
-      <WrapperGame>
-        <WrapperCategory>{data[0].category}</WrapperCategory>
-        <WrapperQuizProgress>{`${
-          translation * -0.1 + 1
-        } / ${maxQuestions}`}</WrapperQuizProgress>
-        <WrapperOverflow>
-          <WrapperSlider translation={translation}>
-            {data.map((question, index) => {
-              return (
-                <WrapperCard key={index}>
-                  <WrapperQuestion>{question.question}</WrapperQuestion>
-                  <WrapperAnswers>
-                    {question.shuffledAnswers.map((answer, index) => {
-                      return (
-                        <WrapperAnswer key={index}>
-                          <Button
-                            variant={
-                              answeredButton === computeButtonVariant(answer)
-                                ? "contained"
-                                : "outlined"
-                            }
-                          >
-                            {answer}
-                          </Button>
-                        </WrapperAnswer>
-                      );
-                    })}
-                  </WrapperAnswers>
-                </WrapperCard>
-              );
-            })}
-          </WrapperSlider>
-        </WrapperOverflow>
-        <MyMicrophone
-          setTranslation={setTranslation}
-          setAnswers={setAnswers}
-          setAnsweredButton={setAnsweredButton}
-        />
-      </WrapperGame>
-    );
+  return (
+    <WrapperGame>
+      <WrapperCategory>{data![0].category}</WrapperCategory>
+      <WrapperQuizProgress>{`${
+        translation * -0.1 + 1
+      } / ${maxQuestions}`}</WrapperQuizProgress>
+      <WrapperOverflow>
+        <WrapperSlider translation={translation}>
+          {data?.map((question, index) => {
+            return (
+              <WrapperCard key={index}>
+                <WrapperQuestion>{question.question}</WrapperQuestion>
+                <WrapperAnswers>
+                  {question.shuffledAnswers.map((answer, index) => {
+                    return (
+                      <WrapperAnswer key={index}>
+                        <Button
+                          variant={
+                            answeredButton === computeButtonVariant(answer)
+                              ? "contained"
+                              : "outlined"
+                          }
+                        >
+                          {answer}
+                        </Button>
+                      </WrapperAnswer>
+                    );
+                  })}
+                </WrapperAnswers>
+              </WrapperCard>
+            );
+          })}
+        </WrapperSlider>
+      </WrapperOverflow>
+      <MyMicrophone
+        setTranslation={setTranslation}
+        setAnswers={setAnswers}
+        setAnsweredButton={setAnsweredButton}
+      />
+    </WrapperGame>
+  );
 };
