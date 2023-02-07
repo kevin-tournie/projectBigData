@@ -1,9 +1,10 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Tooltip } from "@mui/material";
 import { AuthError } from "@supabase/supabase-js";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signInWithEmail } from "../../services/supabase";
 import { AuthContext } from "../../userContext";
+import { WrapperPrivacyPolicy } from "../register/register.style";
 
 import {
   Title,
@@ -43,8 +44,10 @@ export const Login = () => {
         }}
       >
         <WrapperTermsAndConditions>
-          By connecting to this website, you agree the company to use your voice
-          for research purpose.
+          By signing in, you agree with our
+          <WrapperPrivacyPolicy href="privacy_policy.html">
+            privacy policy.
+          </WrapperPrivacyPolicy>
         </WrapperTermsAndConditions>
         <TextField
           label="Email"
@@ -58,7 +61,7 @@ export const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <WrapperErrorMessage>
-          {errorMessage && <span>{errorMessage}</span>}
+          <span>{errorMessage}</span>
         </WrapperErrorMessage>
         <Button type="submit" variant="outlined">
           Sign in

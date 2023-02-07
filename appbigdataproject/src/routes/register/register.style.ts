@@ -30,3 +30,11 @@ export const WrapperTextFieldsAndButton = styled.form`
   gap: 10px;
   width: 300px;
 `;
+
+export const WrapperPrivacyPolicy = styled.a`
+  text-decoration: none;
+  text-decoration-color: none;
+  color: #1a4282;
+  font-weight: semi;
+  padding: 5px;
+`;
