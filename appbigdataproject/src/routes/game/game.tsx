@@ -15,7 +15,7 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { computeButtonVariant, computeScore } from "../../services/utils";
+import { computeButtonVariant, computeScore } from "../../libs/utils";
 import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "./components/microphone";
 import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
@@ -23,7 +23,7 @@ import {
   fetchQuestionsAnswers,
   PostProcessedQuestion,
 } from "../../services/trivia";
-import { maxQuestions, slideValue } from "../../const";
+import { maxQuestions, slideValue } from "../../libs/const";
 
 export const Game = () => {
   const [translation, setTranslation] = useState<number>(0);

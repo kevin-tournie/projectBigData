@@ -1,5 +1,5 @@
-import { numberMap } from "../const";
-import { PostProcessedQuestion } from "./trivia";
+import { numberMap } from "./const";
+import { PostProcessedQuestion } from "../services/trivia";
 
 export function shuffleArray(array: string[]) {
   return array.sort(() => 0.5 - Math.random());

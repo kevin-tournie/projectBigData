@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { signUpWithEmail } from "../../services/supabase";
-import { AuthContext } from "../../userContext";
+import { AuthContext } from "../../libs/userContext";
 import {
   WrapperLink,
   WrapperNoAccount,

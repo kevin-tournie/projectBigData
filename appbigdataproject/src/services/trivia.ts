@@ -1,5 +1,5 @@
-import { maxQuestions } from "../const";
-import { shuffleArray } from "./utils";
+import { maxQuestions } from "../libs/const";
+import { shuffleArray } from "../libs/utils";
 
 type PreProcessedQuestion = {
   category: string;

@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 
-import { categories } from "../../const";
+import { categories } from "../../libs/const";
 import {
   getUserHistorySupabase,
   UserHistoryRow,

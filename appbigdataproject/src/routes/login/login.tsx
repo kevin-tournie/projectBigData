@@ -3,7 +3,7 @@ import { AuthError } from "@supabase/supabase-js";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signInWithEmail } from "../../services/supabase";
-import { AuthContext } from "../../userContext";
+import { AuthContext } from "../../libs/userContext";
 import { WrapperPrivacyPolicy } from "../register/register.style";
 
 import {

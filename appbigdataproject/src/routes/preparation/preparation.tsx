@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
-import { difficulties } from "../../const";
+import { difficulties } from "../../libs/const";
 import {
   fetchAllCategories,
   TriviaAPICategoryResponseStructure,

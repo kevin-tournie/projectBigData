@@ -10,7 +10,7 @@ import { NavBar } from "./routes/navbar/navbar";
 import { PersonalStats } from "./routes/personalStats/personalStats";
 import { Preparation } from "./routes/preparation/preparation";
 import { Register } from "./routes/register/register";
-import { AuthContext } from "./userContext";
+import { AuthContext } from "./libs/userContext";
 
 function App() {
   const queryClient = new QueryClient({

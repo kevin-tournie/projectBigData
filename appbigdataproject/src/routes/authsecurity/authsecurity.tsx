@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router";
-import { AuthContext } from "../../userContext";
+import { AuthContext } from "../../libs/userContext";
 
 export const AuthSecurity = () => {
   const { user_id } = useContext(AuthContext);

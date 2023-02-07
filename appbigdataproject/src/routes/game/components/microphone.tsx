@@ -4,9 +4,9 @@ import { Microphone } from "microphone-js";
 import { TimeLeftBar, Wrapper } from "./microphone.style";
 import { useState, useEffect, useContext } from "react";
 import { processAudio } from "../../../services/backend";
-import { slideValue } from "../../../const";
+import { slideValue } from "../../../libs/const";
 import { uploadFileToBucketSupabase } from "../../../services/supabase";
-import { AuthContext } from "../../../userContext";
+import { AuthContext } from "../../../libs/userContext";
 
 const thinkingTime = 5000;
 const answerTime = 3000;

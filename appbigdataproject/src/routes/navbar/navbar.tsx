@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 import { GlobalWrapper, Wrapper } from "./navbar.style";
 import { signOut } from "../../services/supabase";
-import { AuthContext } from "../../userContext";
+import { AuthContext } from "../../libs/userContext";
 
 export const NavBar = () => {
   const navigation = useNavigate();

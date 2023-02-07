@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { difficulties } from "../../../../const";
+import { difficulties } from "../../../../libs/const";
 import {
   Title,
   WrapperButton,

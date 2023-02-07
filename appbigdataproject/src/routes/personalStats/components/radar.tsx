@@ -9,7 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
-import { categories, difficulties } from "../../../const";
+import { categories, difficulties } from "../../../libs/const";
 import { WrapperDifficultyButtons, WrapperRadar } from "./radar.style";
 import { Button } from "@mui/material";
 
