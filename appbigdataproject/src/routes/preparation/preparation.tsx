@@ -2,36 +2,47 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
-import { fetchAllCategories } from "../../services/trivia";
-import { Loader, WrapperLoader } from "../../styles/global.style";
+import { difficulties } from "../../const";
+import {
+  fetchAllCategories,
+  TriviaAPICategoryResponseStructure,
+} from "../../services/trivia";
+import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
 
 import { Categories } from "./components/categories/categories";
 import { Difficulties } from "./components/difficulties/difficulties";
 import { WrapperSections, WrapperStart } from "./preparation.style";
 
 export const Preparation = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>();
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string>();
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(9);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>(
+    difficulties[0]
+  );
 
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   queryClient.removeQueries("questions");
 
-  const { data, isLoading, error } = useQuery("categories", () =>
-    fetchAllCategories()
-  );
+  const { data, isLoading, error } = useQuery<
+    TriviaAPICategoryResponseStructure,
+    Error
+  >("categories", () => fetchAllCategories());
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <WrapperLoader>
+      <WrapperLoaderOrError>
         <Loader />
-      </WrapperLoader>
+      </WrapperLoaderOrError>
     );
+  }
+
+  if (error)
+    return <WrapperLoaderOrError>{error.message}</WrapperLoaderOrError>;
 
   return (
     <WrapperSections>
       <Categories
-        data={data}
+        data={data!}
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}
       />

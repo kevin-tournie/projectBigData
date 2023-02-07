@@ -4,10 +4,16 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { signUpWithEmail } from "../../services/supabase";
 import { AuthContext } from "../../userContext";
+import {
+  WrapperLink,
+  WrapperNoAccount,
+  WrapperTermsAndConditions,
+} from "../login/login.style";
 
 import {
   Title,
   WrapperLoginPage,
+  WrapperPrivacyPolicy,
   WrapperTextFieldsAndButton,
 } from "./register.style";
 
@@ -26,6 +32,12 @@ export const Register = () => {
           signUpWithEmail(email, password, navigation, setUserId);
         }}
       >
+        <WrapperTermsAndConditions>
+          By signing up, you agree with our
+          <WrapperPrivacyPolicy href="privacy_policy.html">
+            privacy policy.
+          </WrapperPrivacyPolicy>
+        </WrapperTermsAndConditions>
         <TextField
           label="Email"
           value={email}
@@ -40,29 +52,10 @@ export const Register = () => {
         <Button variant="outlined" type="submit">
           Sign up
         </Button>
-        <div
-          style={{
-            color: "#3C76D2",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "5px",
-          }}
-        >
+        <WrapperNoAccount>
           <span>Already have an account ? </span>
-          <Link
-            to={"/login"}
-            style={{
-              textDecoration: "none",
-              textDecorationColor: "none",
-              color: "#1a4282",
-              fontWeight: "semi",
-            }}
-          >
-            Sign in
-          </Link>
-        </div>
+          <WrapperLink to={"/login"}>Sign in</WrapperLink>
+        </WrapperNoAccount>
       </WrapperTextFieldsAndButton>
     </WrapperLoginPage>
   );

@@ -26,7 +26,7 @@ export const Loader = styled.div`
   }
 `;
 
-export const WrapperLoader = styled.div`
+export const WrapperLoaderOrError = styled.div`
   display: flex;
   width: 100%;
   height: 100%;

@@ -1,46 +1,44 @@
 import { numberMap } from "../const";
-import { IQuestion } from "./trivia";
+import { PostProcessedQuestion } from "./trivia";
 
 export function shuffleArray(array: string[]) {
-  return array
-    .sort(() => 0.5 - Math.random())
-    .map((a, index) => index + 1 + ")" + a);
+  return array.sort(() => 0.5 - Math.random());
 }
 
-export function computeScore(questions: IQuestion[], answers: string[]) {
+export function computeScore(
+  questions: PostProcessedQuestion[],
+  answers: string[]
+) {
   let score = 0;
-  if (answers[0].toLowerCase() === ("yes" || "no")) {
+  if (questions[0].type === "boolean") {
     questions.forEach((question, index) => {
       if (
-        question.correct_answer.toLowerCase() ===
-        (answers[index].toLowerCase() === "yes" ? "true" : "false")
+        question.correct_answer ===
+        (answers[index].toLowerCase() === "yes" ? "True" : "False")
       ) {
         score += 1;
       }
     });
   } else {
+    const mappedAnswers = answers.map((answer) =>
+      numberMap.find((textNumber) => textNumber[0] === answer)
+    );
     questions.forEach((question, index) => {
-      if (
-        question.correct_answer.toLowerCase() === question.incorrect_answers
-      ) {
-        score += 1;
+      const answer = mappedAnswers[index];
+      if (answer === undefined) {
+        score += 0;
+      } else {
+        const correspondingAnswer = question.shuffledAnswers.find((answer) =>
+          answer.startsWith(answer[1])
+        );
+        if (correspondingAnswer?.includes(question.correct_answer)) {
+          score += 1;
+        }
       }
     });
   }
 
   return score;
-}
-
-export function computeButtonText(index: number, answer: string) {
-  if (answer.toLowerCase() === "true") {
-    return "Yes";
-  } else if (answer.toLowerCase() === "false") {
-    return "No";
-  } else {
-    return `${index + 1} )${answer
-      .replaceAll(/&quot;/g, '"')
-      .replaceAll(/&#039;/g, "'")}button`;
-  }
 }
 
 export function computeButtonVariant(buttonText: string) {
