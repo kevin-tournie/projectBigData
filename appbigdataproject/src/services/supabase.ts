@@ -39,6 +39,8 @@ export const signInWithEmail = async (
   if (!error) {
     setUserId(data.user?.id);
     navigation(`/${data.user?.id}/personalStats`);
+  } else {
+    return error;
   }
 };
 

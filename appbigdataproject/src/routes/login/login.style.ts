@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const WrapperLoginPage = styled.div`
@@ -29,4 +30,32 @@ export const WrapperTextFieldsAndButton = styled.form`
   justify-content: space-between;
   gap: 10px;
   width: 300px;
+`;
+
+export const WrapperTermsAndConditions = styled.p`
+  font-size: 12px;
+  color: #3c76d2;
+  text-align: center;
+`;
+
+export const WrapperNoAccount = styled.div`
+  color: #3c76d2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+
+export const WrapperLink = styled(Link)`
+  text-decoration: none;
+  text-decoration-color: none;
+  color: #1a4282;
+  font-weight: semi;
+`;
+
+export const WrapperErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  text-align: center;
 `;
