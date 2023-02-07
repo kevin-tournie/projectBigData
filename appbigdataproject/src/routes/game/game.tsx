@@ -15,7 +15,11 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { computeScore } from "../../services/utils";
+import {
+  computeButtonText,
+  computeButtonVariant,
+  computeScore,
+} from "../../services/utils";
 import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "./components/microphone";
 import { Loader, WrapperLoader } from "../../styles/global.style";
@@ -34,7 +38,10 @@ export const Game = () => {
   const { userId } = useParams();
 
   const { data, isLoading, error } = useQuery("questions", () =>
-    fetchQuestionsAnswers(location)
+    fetchQuestionsAnswers(
+      location.state.selectedCategoryId,
+      location.state.selectedDifficulty
+    )
   );
 
   useEffect(() => {
@@ -85,9 +92,9 @@ export const Game = () => {
       } / ${maxQuestions}`}</WrapperQuizProgress>
       <WrapperOverflow>
         <WrapperSlider translation={translation}>
-          {data.results.map((question: any) => {
+          {data.results.map((question: any, index: number) => {
             return (
-              <WrapperCard>
+              <WrapperCard key={index}>
                 <WrapperQuestion>
                   {question.question
                     .replaceAll(/&quot;/g, '"')
@@ -96,23 +103,13 @@ export const Game = () => {
                 <WrapperAnswers>
                   {question.shuffledAnswers.map(
                     (answer: string, index: number) => {
-                      const buttonText =
-                        answer === "True"
-                          ? "Yes"
-                          : answer === "False"
-                          ? "No"
-                          : index +
-                            1 +
-                            ") " +
-                            answer
-                              .replaceAll(/&quot;/g, '"')
-                              .replaceAll(/&#039;/g, "'");
+                      const buttonText = computeButtonText(index, answer);
                       return (
-                        <WrapperAnswer>
+                        <WrapperAnswer key={index}>
                           <Button
                             variant={
                               answeredButton ===
-                              buttonText.trim().toUpperCase() + "button"
+                              computeButtonVariant(buttonText)
                                 ? "contained"
                                 : "outlined"
                             }

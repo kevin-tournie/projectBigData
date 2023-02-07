@@ -7,7 +7,7 @@ export const processAudio = async (blob: Blob) => {
     },
   });
   const text = await data.json();
-  if (!text.data.includes("Error")) {
+  if (!text.data.includes("Unrecognised")) {
     return text.data;
   } else {
     return "Could not recognize the word";

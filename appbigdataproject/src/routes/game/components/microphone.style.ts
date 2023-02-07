@@ -1,9 +1,20 @@
 import styled from "styled-components";
 
-export const TimeLeftBar = styled.div`
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
+
+interface ITimeLeftBarProps {
+  time: number;
+}
+
+export const TimeLeftBar = styled.div<ITimeLeftBarProps>`
   height: 10px;
   width: 400px;
-  animation: timeLeftBar 3s linear;
+  animation: timeLeftBar ${({ time }) => time / 1000}s linear;
   background-color: #72b8ed;
   margin-bottom: 5px;
   @keyframes timeLeftBar {
@@ -16,9 +27,8 @@ export const TimeLeftBar = styled.div`
   }
 `;
 
-export const WrapperButtons = styled.div`
+export const WrapperText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
 `;

@@ -27,14 +27,23 @@ interface WrapperTableRowsProps {
 export const WrapperTableRows = styled.div<WrapperTableRowsProps>`
   display: flex;
   min-height: 500px;
+  flex-direction: column;
+  gap: 10px;
+  align-items: ${(props) => (props.isEmpty ? "center" : "flex-start")};
+  /* border: 1px solid black; */
+`;
+
+export const WrapperTableRow = styled.div`
+  display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: space-around;
-  align-items: ${(props) => (props.isEmpty ? "center" : "flex-start")};
   /* border: 1px solid black; */
 `;
 
 export const WrapperCell = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 200px;
 `;

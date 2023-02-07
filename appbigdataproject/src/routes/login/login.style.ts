@@ -23,7 +23,7 @@ export const Title = styled.div`
   text-align: center;
 `;
 
-export const WrapperTextFieldsAndButton = styled.div`
+export const WrapperTextFieldsAndButton = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
