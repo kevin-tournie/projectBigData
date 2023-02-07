@@ -46,7 +46,7 @@ export const MyMicrophone = ({
           // Next question
           setTimeout(() => {
             setTranslation((state: number) => (state -= slideValue));
-            setAnswers((state: string[]) => [...state, text]);
+            setAnswers((state: string[]) => [...state, text.trim()]);
             setErrorMessage("");
             setAnsweredButton("");
             setShowThinkingTimeBar(true);

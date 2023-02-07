@@ -45,8 +45,8 @@ export const Game = () => {
   );
 
   useEffect(() => {
-    if (translation === slideValue * -1 * maxQuestions) {
-      const endgameScore = computeScore(data.results, answers);
+    if (translation === slideValue * -1 * maxQuestions && data !== undefined) {
+      const endgameScore = computeScore(data, answers);
       setScore(endgameScore);
 
       sendEndgameResultsSupabase(
@@ -84,53 +84,46 @@ export const Game = () => {
       </WrapperPostGame>
     );
 
-  return (
-    <WrapperGame>
-      <WrapperCategory>{data.results[0].category}</WrapperCategory>
-      <WrapperQuizProgress>{`${
-        translation * -0.1 + 1
-      } / ${maxQuestions}`}</WrapperQuizProgress>
-      <WrapperOverflow>
-        <WrapperSlider translation={translation}>
-          {data.results.map((question: any, index: number) => {
-            return (
-              <WrapperCard key={index}>
-                <WrapperQuestion>
-                  {question.question
-                    .replaceAll(/&quot;/g, '"')
-                    .replaceAll(/&#039;/g, "'")}
-                </WrapperQuestion>
-                <WrapperAnswers>
-                  {question.shuffledAnswers.map(
-                    (answer: string, index: number) => {
-                      const buttonText = computeButtonText(index, answer);
+  if (data !== undefined)
+    return (
+      <WrapperGame>
+        <WrapperCategory>{data[0].category}</WrapperCategory>
+        <WrapperQuizProgress>{`${
+          translation * -0.1 + 1
+        } / ${maxQuestions}`}</WrapperQuizProgress>
+        <WrapperOverflow>
+          <WrapperSlider translation={translation}>
+            {data.map((question, index) => {
+              return (
+                <WrapperCard key={index}>
+                  <WrapperQuestion>{question.question}</WrapperQuestion>
+                  <WrapperAnswers>
+                    {question.shuffledAnswers.map((answer, index) => {
                       return (
                         <WrapperAnswer key={index}>
                           <Button
                             variant={
-                              answeredButton ===
-                              computeButtonVariant(buttonText)
+                              answeredButton === computeButtonVariant(answer)
                                 ? "contained"
                                 : "outlined"
                             }
                           >
-                            {buttonText}
+                            {answer}
                           </Button>
                         </WrapperAnswer>
                       );
-                    }
-                  )}
-                </WrapperAnswers>
-              </WrapperCard>
-            );
-          })}
-        </WrapperSlider>
-      </WrapperOverflow>
-      <MyMicrophone
-        setTranslation={setTranslation}
-        setAnswers={setAnswers}
-        setAnsweredButton={setAnsweredButton}
-      />
-    </WrapperGame>
-  );
+                    })}
+                  </WrapperAnswers>
+                </WrapperCard>
+              );
+            })}
+          </WrapperSlider>
+        </WrapperOverflow>
+        <MyMicrophone
+          setTranslation={setTranslation}
+          setAnswers={setAnswers}
+          setAnsweredButton={setAnsweredButton}
+        />
+      </WrapperGame>
+    );
 };

@@ -15,7 +15,6 @@ def googleApiOverfit(WAVFilePath):
     #Reconnaissance de la parole
     # Raises a ``speech_recognition.UnknownValueError`` exception if the speech is unintelligible. Raises a ``speech_recognition.RequestError`` exception if the speech recognition operation failed, if the key isn't valid, or if there is no internet connection.
     try:
-
         result = r.recognize_google(audio, language = "en-US", show_all=True)
         if result: 
             for row in result["alternative"]:
@@ -27,6 +26,4 @@ def googleApiOverfit(WAVFilePath):
     except sr.RequestError:
         return "Unrecognised"
 
-if __name__ == "__main__":
-    filepath = sys.argv[1]
-    print(googleApiOverfit("test.wav"))
+print(googleApiOverfit("test.wav"))

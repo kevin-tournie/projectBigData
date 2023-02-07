@@ -35,9 +35,9 @@ export const categories: ICategory[] = [
   { id: 32, name: "Entertainment: Cartoon & Animations" },
 ];
 
-export const numberMap = {
-  one: 1,
-  two: 2,
-  three: 3,
-  four: 4,
-};
+export const numberMap = [
+  ["one", "1"],
+  ["two", "2"],
+  ["three", "3"],
+  ["four", "4"],
+];

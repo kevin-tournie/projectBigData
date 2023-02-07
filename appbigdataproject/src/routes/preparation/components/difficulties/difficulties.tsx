@@ -6,15 +6,19 @@ import {
   WrapperDifficulties,
 } from "./difficulties.style";
 
+type DifficultiesProps = {
+  selectedDifficulty: string;
+  setSelectedDifficulty: (difficulty: string) => void;
+};
+
 export const Difficulties = ({
   selectedDifficulty,
   setSelectedDifficulty,
-}: any) => {
+}: DifficultiesProps) => {
   return (
     <WrapperDifficulties>
       <Title>Select a difficulty!</Title>
-
-      {difficulties.map((difficulty: string, index: number) => (
+      {difficulties.map((difficulty, index) => (
         <WrapperButton key={index}>
           <Button
             variant={

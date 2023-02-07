@@ -1,16 +1,23 @@
 import { Button } from "@mui/material";
+import { TriviaAPICategoryResponseStructure } from "../../../../services/trivia";
 
 import { Title, WrapperButton, WrapperCategories } from "./categories.style";
+
+type CategoriesProps = {
+  data: TriviaAPICategoryResponseStructure;
+  selectedCategoryId: number;
+  setSelectedCategoryId: (id: number) => void;
+};
 
 export const Categories = ({
   data,
   selectedCategoryId,
   setSelectedCategoryId,
-}: any) => {
+}: CategoriesProps) => {
   return (
     <WrapperCategories>
       <Title>Select a category!</Title>
-      {data.trivia_categories.map((category: any, index: number) => (
+      {data.trivia_categories.map((category, index) => (
         <WrapperButton key={index}>
           <Button
             variant={

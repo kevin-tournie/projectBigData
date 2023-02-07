@@ -15,11 +15,11 @@ type TriviaAPIResponseStructure = {
   results: PreProcessedQuestion[];
 };
 
-type PostProcessedQuestion = PreProcessedQuestion & {
+export type PostProcessedQuestion = PreProcessedQuestion & {
   shuffledAnswers: string[];
 };
 
-type TriviaAPICategoryResponseStructure = {
+export type TriviaAPICategoryResponseStructure = {
   trivia_categories: {
     id: number;
     name: string;
@@ -29,50 +29,49 @@ type TriviaAPICategoryResponseStructure = {
 export const fetchQuestionsAnswers = async (
   selectedCategoryId: number,
   selectedDifficulty: string
-): Promise<PostProcessedQuestion[] | string> => {
-  try {
-    const questions = await fetch(
-      `https://opentdb.com/api.php?amount=${maxQuestions}&category=${selectedCategoryId}&difficulty=${
-        selectedDifficulty.toLowerCase() === "super easy"
-          ? "easy"
-          : selectedDifficulty.toLowerCase()
-      }&type=${
-        selectedDifficulty.toLowerCase() === "super easy"
-          ? "boolean"
-          : "multiple"
-      }`
-    );
+): Promise<PostProcessedQuestion[]> => {
+  const questions = await fetch(
+    `https://opentdb.com/api.php?amount=${maxQuestions}&category=${selectedCategoryId}&difficulty=${
+      selectedDifficulty.toLowerCase() === "super easy"
+        ? "easy"
+        : selectedDifficulty.toLowerCase()
+    }&type=${
+      selectedDifficulty.toLowerCase() === "super easy" ? "boolean" : "multiple"
+    }`
+  );
 
-    const questionsJSON: TriviaAPIResponseStructure = await questions.json();
+  const questionsJSON: TriviaAPIResponseStructure = await questions.json();
 
-    const processedQuestions: PostProcessedQuestion[] =
-      questionsJSON.results.map((question) => {
-        return {
-          ...question,
-          shuffledAnswers: shuffleArray([
-            question.correct_answer,
-            ...question.incorrect_answers,
-          ]),
-        };
-      });
+  const processedQuestions: PostProcessedQuestion[] = questionsJSON.results
+    .map((question) => {
+      return {
+        ...question,
+        shuffledAnswers: shuffleArray([
+          question.correct_answer,
+          ...question.incorrect_answers,
+        ]),
+      };
+    })
+    .map((question) => {
+      return {
+        ...question,
+        shuffledAnswers: question.shuffledAnswers.map((answer, index) => {
+          if (question.type === "boolean") {
+            return answer === "True" ? "Yes" : "No";
+          } else {
+            return `${index + 1} )${answer
+              .replaceAll(/&quot;/g, '"')
+              .replaceAll(/&#039;/g, "'")}`;
+          }
+        }),
+      };
+    });
 
-    return processedQuestions;
-  } catch (error) {
-    console.log(error);
-    return "Can't fetch questions:" + error;
-  }
+  return processedQuestions;
 };
 
-export const fetchAllCategories = async (): Promise<
-  TriviaAPICategoryResponseStructure | string
-> => {
-  try {
+export const fetchAllCategories =
+  async (): Promise<TriviaAPICategoryResponseStructure> => {
     const categories = await fetch("https://opentdb.com/api_category.php");
-    const categoriesJSON: TriviaAPICategoryResponseStructure =
-      await categories.json();
-    return categoriesJSON;
-  } catch (error) {
-    console.log(error);
-    return "Can't fetch categories:" + error;
-  }
-};
+    return await categories.json();
+  };
