@@ -15,15 +15,14 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import {
-  computeButtonText,
-  computeButtonVariant,
-  computeScore,
-} from "../../services/utils";
+import { computeButtonVariant, computeScore } from "../../services/utils";
 import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "./components/microphone";
-import { Loader, WrapperLoader } from "../../styles/global.style";
-import { fetchQuestionsAnswers } from "../../services/trivia";
+import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
+import {
+  fetchQuestionsAnswers,
+  PostProcessedQuestion,
+} from "../../services/trivia";
 import { maxQuestions, slideValue } from "../../const";
 
 export const Game = () => {
@@ -37,11 +36,13 @@ export const Game = () => {
   const navigation = useNavigate();
   const { userId } = useParams();
 
-  const { data, isLoading, error } = useQuery("questions", () =>
-    fetchQuestionsAnswers(
-      location.state.selectedCategoryId,
-      location.state.selectedDifficulty
-    )
+  const { data, isLoading, error } = useQuery<PostProcessedQuestion[], Error>(
+    "questions",
+    () =>
+      fetchQuestionsAnswers(
+        location.state.selectedCategoryId,
+        location.state.selectedDifficulty
+      )
   );
 
   useEffect(() => {
@@ -61,12 +62,13 @@ export const Game = () => {
 
   if (isLoading)
     return (
-      <WrapperLoader>
+      <WrapperLoaderOrError>
         <Loader />
-      </WrapperLoader>
+      </WrapperLoaderOrError>
     );
 
-  if (error) return <div>Error</div>;
+  if (error)
+    return <WrapperLoaderOrError>{error.message}</WrapperLoaderOrError>;
 
   if (showEndgame)
     return (

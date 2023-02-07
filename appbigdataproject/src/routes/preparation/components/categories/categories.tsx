@@ -25,6 +25,7 @@ export const Categories = ({
             }
             onClick={(e) => {
               e.preventDefault();
+              console.log(category.id);
               setSelectedCategoryId(category.id);
             }}
           >

@@ -41,18 +41,6 @@ export function computeScore(
   return score;
 }
 
-export function computeButtonText(index: number, answer: string) {
-  if (answer.toLowerCase() === "true") {
-    return "Yes";
-  } else if (answer.toLowerCase() === "false") {
-    return "No";
-  } else {
-    return `${index + 1} )${answer
-      .replaceAll(/&quot;/g, '"')
-      .replaceAll(/&#039;/g, "'")}button`;
-  }
-}
-
 export function computeButtonVariant(buttonText: string) {
   let result = "";
   if (buttonText === "Yes" || buttonText === "No") {

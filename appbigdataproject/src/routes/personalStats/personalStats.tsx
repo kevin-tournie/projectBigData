@@ -2,8 +2,11 @@ import { Button } from "@mui/material";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { categories } from "../../const";
-import { getUserHistorySupabase } from "../../services/supabase";
-import { Loader, WrapperLoader } from "../../styles/global.style";
+import {
+  getUserHistorySupabase,
+  UserHistoryRow,
+} from "../../services/supabase";
+import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
 import {
   WrapperCell,
   WrapperTable,
@@ -14,18 +17,21 @@ import {
 
 export const PersonalStats = () => {
   const { userId } = useParams();
-  const { data, isLoading, error } = useQuery("personalStats", () =>
-    getUserHistorySupabase(userId || "unknown")
+  const { data, isLoading, error } = useQuery<UserHistoryRow[], Error>(
+    "personalStats",
+    () => getUserHistorySupabase(userId || "unknown")
   );
   const navigation = useNavigate();
 
   if (isLoading)
     return (
-      <WrapperLoader>
+      <WrapperLoaderOrError>
         <Loader />
-      </WrapperLoader>
+      </WrapperLoaderOrError>
     );
-  if (error) return <div>Error</div>;
+
+  if (error)
+    return <WrapperLoaderOrError>{error.message}</WrapperLoaderOrError>;
 
   return (
     <div style={{ margin: "20px", position: "relative" }}>
@@ -47,7 +53,7 @@ export const PersonalStats = () => {
                   </WrapperCell>
                   <WrapperCell>{`${
                     categories.find(
-                      (category) => (category.id = item.category_id)
+                      (category) => category.id === item.category_id
                     )?.name
                   }`}</WrapperCell>
                   <WrapperCell>{item.difficulty}</WrapperCell>

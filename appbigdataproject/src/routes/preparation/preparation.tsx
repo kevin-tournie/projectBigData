@@ -3,8 +3,11 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
 import { difficulties } from "../../const";
-import { fetchAllCategories } from "../../services/trivia";
-import { Loader, WrapperLoader } from "../../styles/global.style";
+import {
+  fetchAllCategories,
+  TriviaAPICategoryResponseStructure,
+} from "../../services/trivia";
+import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
 
 import { Categories } from "./components/categories/categories";
 import { Difficulties } from "./components/difficulties/difficulties";
@@ -20,49 +23,52 @@ export const Preparation = () => {
   const queryClient = useQueryClient();
   queryClient.removeQueries("questions");
 
-  const { data, isLoading, error } = useQuery("categories", () =>
-    fetchAllCategories()
-  );
+  const { data, isLoading, error } = useQuery<
+    TriviaAPICategoryResponseStructure,
+    Error
+  >("categories", () => fetchAllCategories());
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <WrapperLoader>
+      <WrapperLoaderOrError>
         <Loader />
-      </WrapperLoader>
-    );
-
-  if (data !== undefined) {
-    return (
-      <WrapperSections>
-        <Categories
-          data={data}
-          selectedCategoryId={selectedCategoryId}
-          setSelectedCategoryId={setSelectedCategoryId}
-        />
-        <Difficulties
-          selectedDifficulty={selectedDifficulty}
-          setSelectedDifficulty={setSelectedDifficulty}
-        />
-        <WrapperStart>
-          <Button
-            variant="outlined"
-            disabled={
-              selectedCategoryId == undefined || selectedDifficulty == undefined
-            }
-            onClick={(e) => {
-              e.preventDefault();
-              navigation(`../game/play`, {
-                state: {
-                  selectedCategoryId,
-                  selectedDifficulty,
-                },
-              });
-            }}
-          >
-            Go
-          </Button>
-        </WrapperStart>
-      </WrapperSections>
+      </WrapperLoaderOrError>
     );
   }
+
+  if (error)
+    return <WrapperLoaderOrError>{error.message}</WrapperLoaderOrError>;
+
+  return (
+    <WrapperSections>
+      <Categories
+        data={data!}
+        selectedCategoryId={selectedCategoryId}
+        setSelectedCategoryId={setSelectedCategoryId}
+      />
+      <Difficulties
+        selectedDifficulty={selectedDifficulty}
+        setSelectedDifficulty={setSelectedDifficulty}
+      />
+      <WrapperStart>
+        <Button
+          variant="outlined"
+          disabled={
+            selectedCategoryId == undefined || selectedDifficulty == undefined
+          }
+          onClick={(e) => {
+            e.preventDefault();
+            navigation(`../game/play`, {
+              state: {
+                selectedCategoryId,
+                selectedDifficulty,
+              },
+            });
+          }}
+        >
+          Go
+        </Button>
+      </WrapperStart>
+    </WrapperSections>
+  );
 };
