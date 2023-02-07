@@ -3,10 +3,12 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { categories } from "../../const";
 import { getUserHistorySupabase } from "../../services/supabase";
+import { Loader, WrapperLoader } from "../../styles/global.style";
 import {
   WrapperCell,
   WrapperTable,
   WrapperTableHeaders,
+  WrapperTableRow,
   WrapperTableRows,
 } from "./personalStats.style";
 
@@ -17,7 +19,12 @@ export const PersonalStats = () => {
   );
   const navigation = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <WrapperLoader>
+        <Loader />
+      </WrapperLoader>
+    );
   if (error) return <div>Error</div>;
 
   return (
@@ -33,8 +40,8 @@ export const PersonalStats = () => {
         <WrapperTableRows isEmpty={data?.length === 0}>
           {data?.length === 0
             ? "No recent games played"
-            : data?.map((item: any) => (
-                <>
+            : data?.map((item: any, index: number) => (
+                <WrapperTableRow key={index}>
                   <WrapperCell>
                     {new Date(Date.parse(item.created_at)).toDateString()}
                   </WrapperCell>
@@ -45,7 +52,7 @@ export const PersonalStats = () => {
                   }`}</WrapperCell>
                   <WrapperCell>{item.difficulty}</WrapperCell>
                   <WrapperCell>{item.score}</WrapperCell>
-                </>
+                </WrapperTableRow>
               ))}
         </WrapperTableRows>
       </WrapperTable>

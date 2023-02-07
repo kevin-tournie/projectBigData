@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
+import { fetchAllCategories } from "../../services/trivia";
 import { Loader, WrapperLoader } from "../../styles/global.style";
 
 import { Categories } from "./components/categories/categories";
@@ -17,7 +18,7 @@ export const Preparation = () => {
   queryClient.removeQueries("questions");
 
   const { data, isLoading, error } = useQuery("categories", () =>
-    fetch("https://opentdb.com/api_category.php").then((data) => data.json())
+    fetchAllCategories()
   );
 
   if (isLoading)

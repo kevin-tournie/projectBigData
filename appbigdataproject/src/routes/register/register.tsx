@@ -20,7 +20,12 @@ export const Register = () => {
   return (
     <WrapperLoginPage>
       <Title>The Big Neural Quiz</Title>
-      <WrapperTextFieldsAndButton>
+      <WrapperTextFieldsAndButton
+        onSubmit={(e) => {
+          e.preventDefault();
+          signUpWithEmail(email, password, navigation, setUserId);
+        }}
+      >
         <TextField
           label="Email"
           value={email}
@@ -32,13 +37,7 @@ export const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button
-          variant="outlined"
-          onClick={(e) => {
-            e.preventDefault();
-            signUpWithEmail(email, password, navigation, setUserId);
-          }}
-        >
+        <Button variant="outlined" type="submit">
           Sign up
         </Button>
         <div

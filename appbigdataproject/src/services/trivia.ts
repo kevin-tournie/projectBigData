@@ -1,13 +1,27 @@
 import { maxQuestions } from "../const";
 import { shuffleArray } from "./utils";
 
-export const fetchQuestionsAnswers = async (location: any) => {
+export interface IQuestion {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
+export const fetchQuestionsAnswers = async (
+  selectedCategoryId: number,
+  selectedDifficulty: string
+) => {
   const result = await fetch(
-    `https://opentdb.com/api.php?amount=${maxQuestions}&category=` +
-      location.state.selectedCategoryId +
-      "&difficulty=" +
-      location.state.selectedDifficulty.toLowerCase() +
-      "&type=boolean"
+    `https://opentdb.com/api.php?amount=${maxQuestions}&category=${selectedCategoryId}&difficulty=${
+      selectedDifficulty.toLowerCase() === "super easy"
+        ? "easy"
+        : selectedDifficulty.toLowerCase()
+    }&type=${
+      selectedDifficulty.toLowerCase() === "super easy" ? "boolean" : "multiple"
+    }`
   )
     .then((data) => data.json())
     .then((data) => {

@@ -1,13 +1,15 @@
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import { Microphone } from "microphone-js";
-import { TimeLeftBar } from "./microphone.style";
+import { TimeLeftBar, Wrapper } from "./microphone.style";
 import { useState, useEffect, useContext } from "react";
 import { processAudio } from "../../../services/backend";
 import { slideValue } from "../../../const";
-import { Feedback } from "./feedback";
 import { uploadFileToBucketSupabase } from "../../../services/supabase";
 import { AuthContext } from "../../../userContext";
+
+const thinkingTime = 5000;
+const answerTime = 3000;
 
 export const MyMicrophone = ({
   setTranslation,
@@ -17,18 +19,10 @@ export const MyMicrophone = ({
   const { user_id } = useContext(AuthContext);
 
   const [mic, setMic] = useState<MicrophoneInstance>(Microphone());
-  const [blob, setBlob] = useState<Blob>(new Blob());
-  const [text, setText] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [showThinkingTimeBar, setShowThinkingTimeBar] = useState<boolean>(true);
-  const [showFeedbackTimebarAndButtons, setShowFeedbackTimebarAndButtons] =
-    useState<boolean>(false);
   const [showAnswerTimeBar, setShowAnswerTimeBar] = useState<boolean>(false);
-
-  const [retry, setRetry] = useState<boolean>(false);
-  const [filename, setFilename] = useState<string>("");
-  const [timer, setTimer] = useState<any>(null);
-  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleMicStop = () => {
     setErrorMessage("");
@@ -38,30 +32,29 @@ export const MyMicrophone = ({
     if (blob?.size) {
       processAudio(blob).then((text) => {
         if (text === "Could not recognize the word") {
-          setRetry(true);
-          setErrorMessage(text);
+          setErrorMessage(text + "! Try again!");
+          setShowAnswerTimeBar(true);
+          mic.start();
         } else {
-          setBlob(blob);
           setAnsweredButton(text.trim().toUpperCase() + "button");
-          setText(text);
-          setShowFeedbackTimebarAndButtons(true);
+          uploadFileToBucketSupabase(
+            blob,
+            `${text.trim()}_${new Date().getTime()}.wav`,
+            user_id
+          );
+
+          // Next question
+          setTimeout(() => {
+            setTranslation((state: number) => (state -= slideValue));
+            setAnswers((state: string[]) => [...state, text]);
+            setErrorMessage("");
+            setAnsweredButton("");
+            setShowThinkingTimeBar(true);
+          }, 2000);
         }
       });
     }
   };
-
-  // Interrupt management
-  useEffect(() => {
-    if (retry) {
-      setRetry(false);
-      setAnsweredButton("");
-      setShowFeedbackTimebarAndButtons(false);
-      setShowAnswerTimeBar(true);
-      mic.start();
-      console.log("mic started");
-      return () => clearTimeout(timer);
-    }
-  }, [retry]);
 
   // Phase 1: Thinking time
   useEffect(() => {
@@ -70,8 +63,7 @@ export const MyMicrophone = ({
         setShowThinkingTimeBar(false);
         setShowAnswerTimeBar(true);
         mic.start();
-        console.log("mic started");
-      }, 3000);
+      }, 5000);
     }
   }, [showThinkingTimeBar]);
 
@@ -81,52 +73,17 @@ export const MyMicrophone = ({
       setTimeout(() => {
         setShowAnswerTimeBar(false);
         handleMicStop();
-        console.log("mic stopped");
       }, 3000);
     }
   }, [showAnswerTimeBar]);
 
-  // Phase 3: Feedback time
-  useEffect(() => {
-    if (showFeedbackTimebarAndButtons) {
-      setTimer(
-        setTimeout(() => {
-          if (filename === "") {
-            uploadFileToBucketSupabase(
-              blob,
-              `${text.trim()}_false_true_${new Date().getTime()}.wav`,
-              user_id
-            );
-          } else {
-            uploadFileToBucketSupabase(blob, filename, user_id);
-          }
-          setFilename("");
-          setTranslation((state: number) => (state -= slideValue));
-          setAnswers((state: string[]) => [...state, text]);
-          setRetry(false);
-          setErrorMessage("");
-          setAnsweredButton("");
-          setShowFeedbackTimebarAndButtons(false);
-          setShowThinkingTimeBar(true);
-        }, 3000)
-      );
-    }
-  }, [showFeedbackTimebarAndButtons]);
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "10px",
-      }}
-    >
+    <Wrapper>
       {errorMessage}
-      {showThinkingTimeBar && <TimeLeftBar />}
+      {showThinkingTimeBar && <TimeLeftBar time={thinkingTime} />}
       {showAnswerTimeBar ? (
         <>
-          <TimeLeftBar />
+          <TimeLeftBar time={answerTime} />
           <MicIcon fontSize="large" />
         </>
       ) : (
@@ -134,12 +91,6 @@ export const MyMicrophone = ({
           <MicOffIcon fontSize="large" />
         </>
       )}
-      {showFeedbackTimebarAndButtons && (
-        <>
-          <TimeLeftBar />
-          <Feedback text={text} setRetry={setRetry} setFilename={setFilename} />
-        </>
-      )}
-    </div>
+    </Wrapper>
   );
 };

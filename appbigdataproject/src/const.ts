@@ -1,4 +1,4 @@
-export const difficulties = ["Easy", "Medium", "hard"];
+export const difficulties = ["Super Easy", "Easy", "Medium", "hard"];
 
 export const slideValue = 10;
 export const maxQuestions = 10;
@@ -34,3 +34,10 @@ export const categories: ICategory[] = [
   { id: 31, name: "Entertainment: Japanese Anime & Manga" },
   { id: 32, name: "Entertainment: Cartoon & Animations" },
 ];
+
+export const numberMap = {
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+};
