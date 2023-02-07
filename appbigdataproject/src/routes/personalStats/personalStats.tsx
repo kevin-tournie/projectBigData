@@ -1,14 +1,17 @@
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
+
 import { categories } from "../../const";
 import {
   getUserHistorySupabase,
   UserHistoryRow,
 } from "../../services/supabase";
 import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
+import { RadarScores } from "./components/radar";
 import {
   WrapperCell,
+  WrapperGlobal,
   WrapperTable,
   WrapperTableHeaders,
   WrapperTableRow,
@@ -34,9 +37,9 @@ export const PersonalStats = () => {
     return <WrapperLoaderOrError>{error.message}</WrapperLoaderOrError>;
 
   return (
-    <div style={{ margin: "20px", position: "relative" }}>
-      <h2>Personal Stats</h2>
+    <WrapperGlobal>
       <WrapperTable>
+        <h2>History of games</h2>
         <WrapperTableHeaders>
           <WrapperCell>Date</WrapperCell>
           <WrapperCell>Category</WrapperCell>
@@ -62,13 +65,14 @@ export const PersonalStats = () => {
               ))}
         </WrapperTableRows>
       </WrapperTable>
+      <RadarScores userHistory={data} />
       <Button
         variant="contained"
-        style={{ position: "absolute", bottom: "0px", right: "20px" }}
+        style={{ position: "absolute", bottom: "15px", right: "20px" }}
         onClick={() => navigation("../game/preparation")}
       >
         New game
       </Button>
-    </div>
+    </WrapperGlobal>
   );
 };

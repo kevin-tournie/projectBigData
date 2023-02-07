@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
+export const WrapperGlobal = styled.div`
+  display: flex;
+  gap: 20px;
+  position: relative;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
 export const WrapperTable = styled.div`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid black; */
   border-radius: 10px;
   gap: 30px;
-  padding: 15px 0px;
+  padding: 15px 15px;
   background-color: rgb(60, 118, 210);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  width: 55%;
 `;
 
 export const WrapperTableHeaders = styled.div`
@@ -17,7 +23,6 @@ export const WrapperTableHeaders = styled.div`
   font-size: 20px;
   flex-direction: row;
   justify-content: space-around;
-  /* border: 1px solid black; */
 `;
 
 interface WrapperTableRowsProps {
@@ -30,7 +35,6 @@ export const WrapperTableRows = styled.div<WrapperTableRowsProps>`
   flex-direction: column;
   gap: 10px;
   align-items: ${(props) => (props.isEmpty ? "center" : "flex-start")};
-  /* border: 1px solid black; */
 `;
 
 export const WrapperTableRow = styled.div`
@@ -38,7 +42,6 @@ export const WrapperTableRow = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
-  /* border: 1px solid black; */
 `;
 
 export const WrapperCell = styled.div`
@@ -46,4 +49,16 @@ export const WrapperCell = styled.div`
   justify-content: center;
   align-items: center;
   width: 200px;
+`;
+
+export const WrapperTableAndChart = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+`;
+
+export const WrapperRadarAndButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
