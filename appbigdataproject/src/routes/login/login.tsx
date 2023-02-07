@@ -35,7 +35,7 @@ export const Login = () => {
             navigation,
             setUserId
           );
-          if (error!) {
+          if (error) {
             setErrorMessage(error.message);
             setTimeout(() => {
               setErrorMessage(null);

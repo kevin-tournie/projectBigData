@@ -42,11 +42,10 @@ export const signInWithEmail = async (
   });
 
   if (error) {
-    throw new Error("Error signing in" + error.message);
+    return error;
   } else {
     setUserId(data.user?.id);
     navigation(`/${data.user?.id}/personalStats`);
-    return data;
   }
 };
 
