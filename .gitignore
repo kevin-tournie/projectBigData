@@ -98,4 +98,4 @@ env.bak/
 venv.bak/
 
 # MFCCs
-assets\MFCCs
+MFCCs/
