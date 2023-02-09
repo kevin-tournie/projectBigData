@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const WrapperGlobal = styled.div`
   display: flex;
   gap: 20px;
-  position: relative;
+
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -13,9 +13,10 @@ export const WrapperTable = styled.div`
   flex-direction: column;
   border-radius: 10px;
   gap: 30px;
-  padding: 15px 15px;
-  background-color: rgb(60, 118, 210);
+  padding: 20px 20px;
+  background-color: white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
 `;
 
 export const WrapperTableHeaders = styled.div`
@@ -61,4 +62,9 @@ export const WrapperRadarAndButtons = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const WrapperTitle = styled.div`
+  font-size: 20px;
+  font-weight: bold;
 `;
