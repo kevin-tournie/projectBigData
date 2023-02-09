@@ -62,6 +62,16 @@ export const Game = () => {
     }
   }, [translation]);
 
+  useEffect(() => {
+    if (data !== undefined) {
+      if (data![0].type === "boolean") {
+        setType("boolean");
+      } else {
+        setType("multiple");
+      }
+    }
+  }, [data]);
+
   if (isLoading)
     return (
       <WrapperLoaderOrError>
@@ -88,11 +98,6 @@ export const Game = () => {
       </WrapperPostGame>
     );
 
-  if (data![0].type === "boolean") {
-    setType("boolean");
-  } else {
-    setType("multiple");
-  }
   return (
     <WrapperGame>
       <WrapperCategory>{data![0].category}</WrapperCategory>
