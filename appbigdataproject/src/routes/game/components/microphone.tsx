@@ -43,7 +43,6 @@ export const MyMicrophone = ({
             setShowAnswerTimeBar(true);
             mic.start();
           } else {
-            console.log("success");
             setAnsweredButton(text.trim().toUpperCase() + "button");
             uploadFileToBucketSupabase(
               blob,
@@ -73,7 +72,6 @@ export const MyMicrophone = ({
             setShowAnswerTimeBar(true);
             mic.start();
           } else {
-            console.log("success");
             setAnsweredButton(text.trim().toUpperCase() + "button");
             uploadFileToBucketSupabase(
               blob,

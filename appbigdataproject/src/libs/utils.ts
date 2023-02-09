@@ -5,6 +5,20 @@ export function shuffleArray(array: string[]) {
   return array.sort(() => 0.5 - Math.random());
 }
 
+export function computeSingleQuestionScore(
+  answer: string,
+  question: PostProcessedQuestion
+) {
+  if (question.type === "boolean") {
+    return question.correct_answer ===
+      (answer.toLowerCase() === "yes" ? "True" : "False")
+      ? "success"
+      : "error";
+  } else {
+    return answer.includes(question.correct_answer) ? "success" : "error";
+  }
+}
+
 export function computeScore(
   questions: PostProcessedQuestion[],
   answers: string[]
