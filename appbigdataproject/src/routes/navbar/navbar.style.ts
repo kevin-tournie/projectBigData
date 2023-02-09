@@ -4,6 +4,7 @@ export const GlobalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: hidden;
 `;
 
 export const Wrapper = styled.div`

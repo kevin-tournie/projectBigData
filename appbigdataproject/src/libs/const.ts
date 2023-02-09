@@ -1,4 +1,4 @@
-export const difficulties = ["Super Easy", "Easy", "Medium", "hard"];
+export const difficulties = ["Super Easy", "Easy", "Medium", "Hard"];
 
 export const slideValue = 10;
 export const maxQuestions = 10;

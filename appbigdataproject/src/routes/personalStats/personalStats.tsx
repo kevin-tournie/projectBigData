@@ -16,6 +16,7 @@ import {
   WrapperTableHeaders,
   WrapperTableRow,
   WrapperTableRows,
+  WrapperTitle,
 } from "./personalStats.style";
 
 export const PersonalStats = () => {
@@ -39,7 +40,7 @@ export const PersonalStats = () => {
   return (
     <WrapperGlobal>
       <WrapperTable>
-        <h2>History of games</h2>
+        <WrapperTitle>History of games</WrapperTitle>
         <WrapperTableHeaders>
           <WrapperCell>Date</WrapperCell>
           <WrapperCell>Category</WrapperCell>
@@ -64,15 +65,15 @@ export const PersonalStats = () => {
                 </WrapperTableRow>
               ))}
         </WrapperTableRows>
+        <Button
+          variant="contained"
+          style={{ position: "absolute", bottom: "15px", right: "20px" }}
+          onClick={() => navigation("../game/preparation")}
+        >
+          New game
+        </Button>
       </WrapperTable>
       <RadarScores userHistory={data} />
-      <Button
-        variant="contained"
-        style={{ position: "absolute", bottom: "15px", right: "20px" }}
-        onClick={() => navigation("../game/preparation")}
-      >
-        New game
-      </Button>
     </WrapperGlobal>
   );
 };

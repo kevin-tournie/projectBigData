@@ -1,5 +1,4 @@
-import { TextField, Button, Tooltip } from "@mui/material";
-import { AuthError } from "@supabase/supabase-js";
+import { TextField, Button } from "@mui/material";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signInWithEmail } from "../../services/supabase";
@@ -23,6 +22,7 @@ export const Login = () => {
 
   const navigation = useNavigate();
   const { setUserId } = useContext(AuthContext);
+
   return (
     <WrapperLoginPage>
       <Title>The Big Neural Quiz</Title>
@@ -35,6 +35,7 @@ export const Login = () => {
             navigation,
             setUserId
           );
+          // await sendBulkDataToSupabase();
           if (error) {
             setErrorMessage(error.message);
             setTimeout(() => {
