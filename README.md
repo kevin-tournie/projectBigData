@@ -3,12 +3,10 @@
 
 ## Getting started
 
-There are _ repositories:
-1) ...
-2)..
-
-To start the backend, ...
-To start the frontend, ...
+There are 3 repositories: <br />
+**1) Models:** It contains the python functions for training, the models, the visualisations... <br />
+**2) appbigdataproject:** Frontend application <br />
+**3) server:** Backend <br />
 
 
 ## Add your files
@@ -87,11 +85,17 @@ For people who want to make changes to your project, it's helpful to have some d
 You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
 ## Authors and acknowledgment
-Modèles:
+**Modèles:** <br />
+Simon HUANG <br />
+Abdel-Rahim MEZIDI <br />
 
-Cloud:
+**Cloud:** <br />
+Keven BIHAN <br />
+Martial GESSEAUME <br />
+Kévin TOURNIE <br />
 
-Frontend:
+**Frontend:** <br />
+Kévin TOURNIE <br />
 
 ## License
 For open source projects, say how it is licensed.
