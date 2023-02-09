@@ -15,7 +15,11 @@ import {
 } from "./game.style";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { computeButtonVariant, computeScore } from "../../libs/utils";
+import {
+  computeButtonVariant,
+  computeScore,
+  computeSingleQuestionScore,
+} from "../../libs/utils";
 import { sendEndgameResultsSupabase } from "../../services/supabase";
 import { MyMicrophone } from "./components/microphone";
 import { Loader, WrapperLoaderOrError } from "../../styles/global.style";
@@ -119,6 +123,11 @@ export const Game = () => {
                             answeredButton === computeButtonVariant(answer)
                               ? "contained"
                               : "outlined"
+                          }
+                          color={
+                            answeredButton !== ""
+                              ? computeSingleQuestionScore(answer, question)
+                              : "inherit"
                           }
                         >
                           {answer}

@@ -65,7 +65,7 @@ export const fetchQuestionsAnswers = async (
             if (question.type === "boolean") {
               return answer === "True" ? "Yes" : "No";
             } else {
-              return `${index + 1} )${answer
+              return `${index + 1}) ${answer
                 .replaceAll(/&quot;/g, '"')
                 .replaceAll(/&#039;/g, "'")}`;
             }
