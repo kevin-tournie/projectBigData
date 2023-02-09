@@ -32,6 +32,8 @@ export const Game = () => {
   const [score, setScore] = useState<number>(0);
   const [answeredButton, setAnsweredButton] = useState<any>("");
 
+  const [type, setType] = useState<string>("");
+
   const location = useLocation();
   const navigation = useNavigate();
   const { userId } = useParams();
@@ -86,6 +88,11 @@ export const Game = () => {
       </WrapperPostGame>
     );
 
+  if (data![0].type === "boolean") {
+    setType("boolean");
+  } else {
+    setType("multiple");
+  }
   return (
     <WrapperGame>
       <WrapperCategory>{data![0].category}</WrapperCategory>
@@ -124,6 +131,7 @@ export const Game = () => {
         setTranslation={setTranslation}
         setAnswers={setAnswers}
         setAnsweredButton={setAnsweredButton}
+        type={type}
       />
     </WrapperGame>
   );

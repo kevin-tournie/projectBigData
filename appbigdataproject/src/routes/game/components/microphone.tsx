@@ -3,7 +3,7 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import { Microphone } from "microphone-js";
 import { TimeLeftBar, Wrapper } from "./microphone.style";
 import { useState, useEffect, useContext } from "react";
-import { processAudio } from "../../../services/backend";
+import { processAudio, processAudio_yes_no } from "../../../services/backend";
 import { slideValue } from "../../../libs/const";
 import { uploadFileToBucketSupabase } from "../../../services/supabase";
 import { AuthContext } from "../../../libs/userContext";
@@ -15,6 +15,7 @@ export const MyMicrophone = ({
   setTranslation,
   setAnswers,
   setAnsweredButton,
+  type,
 }: any) => {
   const { user_id } = useContext(AuthContext);
 
@@ -30,34 +31,67 @@ export const MyMicrophone = ({
     const blob = mic.getBlob();
     mic.reset();
     if (blob?.size) {
-      processAudio(blob).then((text) => {
-        console.log(text);
-        text = text.replaceAll('"','');
-        console.log(text);
-        if (text === "Could not recognize the word" ||(text==="null") || (text === "Unrecognised")) {
-          console.log("error");
-          setErrorMessage(text + "! Try again!");
-          setShowAnswerTimeBar(true);
-          mic.start();
-        } else {
-          console.log("success");
-          setAnsweredButton(text.trim().toUpperCase() + "button");
-          uploadFileToBucketSupabase(
-            blob,
-            `${text.trim()}_${new Date().getTime()}.wav`,
-            user_id
-          );
+      if (type === "boolean") {
+        processAudio_yes_no(blob).then((text) => {
+          text = text.replaceAll('"', "");
+          if (
+            text === "Could not recognize the word" ||
+            text === "null" ||
+            text === "Unrecognised"
+          ) {
+            setErrorMessage(text + "! Try again!");
+            setShowAnswerTimeBar(true);
+            mic.start();
+          } else {
+            console.log("success");
+            setAnsweredButton(text.trim().toUpperCase() + "button");
+            uploadFileToBucketSupabase(
+              blob,
+              `${text.trim()}_${new Date().getTime()}.wav`,
+              user_id
+            );
 
-          // Next question
-          setTimeout(() => {
-            setTranslation((state: number) => (state -= slideValue));
-            setAnswers((state: string[]) => [...state, text.trim()]);
-            setErrorMessage("");
-            setAnsweredButton("");
-            setShowThinkingTimeBar(true);
-          }, 2000);
-        }
-      });
+            // Next question
+            setTimeout(() => {
+              setTranslation((state: number) => (state -= slideValue));
+              setAnswers((state: string[]) => [...state, text.trim()]);
+              setErrorMessage("");
+              setAnsweredButton("");
+              setShowThinkingTimeBar(true);
+            }, 2000);
+          }
+        });
+      } else {
+        processAudio(blob).then((text) => {
+          text = text.replaceAll('"', "");
+          if (
+            text === "Could not recognize the word" ||
+            text === "null" ||
+            text === "Unrecognised"
+          ) {
+            setErrorMessage(text + "! Try again!");
+            setShowAnswerTimeBar(true);
+            mic.start();
+          } else {
+            console.log("success");
+            setAnsweredButton(text.trim().toUpperCase() + "button");
+            uploadFileToBucketSupabase(
+              blob,
+              `${text.trim()}_${new Date().getTime()}.wav`,
+              user_id
+            );
+
+            // Next question
+            setTimeout(() => {
+              setTranslation((state: number) => (state -= slideValue));
+              setAnswers((state: string[]) => [...state, text.trim()]);
+              setErrorMessage("");
+              setAnsweredButton("");
+              setShowThinkingTimeBar(true);
+            }, 2000);
+          }
+        });
+      }
     }
   };
 
