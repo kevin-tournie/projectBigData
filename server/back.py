@@ -1,18 +1,12 @@
-from fastapi import FastAPI,UploadFile, File
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import os
-from subprocess import Popen, PIPE
-import subprocess
 import uvicorn
-import googleApiOverfit
+# import googleApiOverfit
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-import json
-
+import lstm
 app = FastAPI()
 
-##pour lancer le serveur : uvicorn back:app --reload
+# pour lancer le serveur : uvicorn back:app --reload
 HOST = "127.0.0.1"  # The server's hostname or IP address
 PORT = 65432  # The port used by the server
 
@@ -28,9 +22,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def get_data():
     return "coucou Rahim"
+
 
 @app.post("/api/processAudio")
 async def process_audio(file: UploadFile):
@@ -39,7 +35,8 @@ async def process_audio(file: UploadFile):
     # do something with the audio blob, for example saving it to a file:
     with open("test.wav", "wb") as f:
         f.write(audio_blob)
-    process =googleApiOverfit.googleApiOverfit(filename)
+    # process =googleApiOverfit.googleApiOverfit(filename)
+    process = lstm.predict(filename)
     print(process)
     return process
     """
@@ -47,4 +44,4 @@ async def process_audio(file: UploadFile):
     return JSONResponse(content=json_object)
     """
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="127.0.0.1", port=5000)
