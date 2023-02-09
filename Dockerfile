@@ -21,5 +21,5 @@ RUN pip install -r ../Models/requirements.txt
 # Set the command to run the endpoint
 CMD ["python", "./back.py"]
 
-# Expose ports 5000
-EXPOSE 5000
+# Expose ports 8080
+EXPOSE 8080
