@@ -15,22 +15,22 @@ Project Big Data
 This project aim to create a website to have a game to test your general knowledge using the microphone to answer. To do this we mainly used ReactJS, TensorFlow. To get the questions we used Trivia database API. We used some ML in order to recognise the answer of the player. 
 
 ## Installation
-If you wan to test this in local you need to : <br />
-	**Front :** <br />
-		- cd appbigdataproject <br />
-		- npm install <br />
-		- npm run dev <br />
+If you wan to test this in local you need to :
+	**Front :**
+		- cd appbigdataproject
+		- npm install
+		- npm run dev
 
-	**Back :** <br />
-		Option 1 (docker): <br />
-			- docker pull @keven/back <br />
-			- docker run -p 8080:8080 back <br />
-		Option 2 (local): <br />
-			- cd Modele <br />
-			- pip install -r requirements.txt <br />
-			- cd .. <br />
-			- cd server <br />
-			- py .\back.py <br />
+	**Back :**
+		Option 1 (docker):
+			- docker pull @keven/back
+			- docker run -p 8080:8080 back
+		Option 2 (local):
+			- cd Modele
+			- pip install -r requirements.txt
+			- cd ..
+			- cd server
+			- py .\back.py
 
 Now go to : http://127.0.0.1:5713 <br />
 Create an account and verify it before playing <br />
