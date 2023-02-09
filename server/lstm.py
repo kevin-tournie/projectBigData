@@ -7,6 +7,9 @@ n_mel = 20
 n_mfcc = 5
 max_length = 581
 model = load_model("lstm_20_5_16k_basic.h5")
+model_yes_no = load_model("model_lstm_16k_yes_no.h5")
+classes_yes_no = ["yes", "no"]
+max_length_yes_no = 461
 
 
 def load_from_wav(filePath):
@@ -27,6 +30,13 @@ def process_audio(file_path, max_length=max_length, n_mels=20, n_mfcc=5):
 
 
 def predict(filePath, classes=classes, model=model, max_length=max_length, n_mels=20, n_mfcc=5):
+    res = process_audio(filePath, max_length=max_length, n_mels=20, n_mfcc=5)
+    pred = model.predict(res)
+    prediction = classes[np.argmax(pred)]
+    return prediction
+
+
+def predict_yes_no(filePath, classes=classes_yes_no, model=model_yes_no, max_length=max_length_yes_no, n_mels=20, n_mfcc=5):
     res = process_audio(filePath, max_length=max_length, n_mels=20, n_mfcc=5)
     pred = model.predict(res)
     prediction = classes[np.argmax(pred)]

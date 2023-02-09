@@ -46,5 +46,22 @@ async def process_audio(file: UploadFile):
     json_object = json.dumps({"data":process})
     return JSONResponse(content=json_object)
     """
+
+
+@app.post("/api/processAudio_yes_no")
+async def process_audio(file: UploadFile):
+    filename = file.filename
+    audio_blob = await file.read()
+    # do something with the audio blob, for example saving it to a file:
+    with open("test.wav", "wb") as f:
+        f.write(audio_blob)
+    process = lstm.predict_yes_no(filename)
+    #process =googleApiOverfit.googleApiOverfit(filename)
+    print(process)
+    return process
+    """
+    json_object = json.dumps({"data":process})
+    return JSONResponse(content=json_object)
+    """
 if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=5000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
