@@ -16,12 +16,12 @@ This project aim to create a website to have a game to test your general knowled
 
 ## Installation
 If you wan to test this in local you need to :
-	**Front :**
+
+	Front :
 		- cd appbigdataproject
 		- npm install
 		- npm run dev
-
-	**Back :**
+	Back :
 		Option 1 (docker):
 			- docker pull @keven/back
 			- docker run -p 8080:8080 back
