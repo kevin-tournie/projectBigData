@@ -2,7 +2,7 @@
 FROM python:3.9.16
 
 # Set working directory in the container
-WORKDIR /app
+WORKDIR /app/server
 
 # Copy trained files to the working directory in the container
 COPY ./Models/trained /app/Models/trained
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y libsndfile1
 RUN pip install -r ./Models/requirements.txt
 
 # Set the command to run the endpoint
-CMD ["python", "./server/back.py"]
+CMD ["python", "back.py"]
 
 # Expose ports 5000
 EXPOSE 5000
