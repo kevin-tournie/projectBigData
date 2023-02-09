@@ -58,6 +58,9 @@ export const fetchQuestionsAnswers = async (
       .map((question) => {
         return {
           ...question,
+          question: question.question
+            .replaceAll(/&quot;/g, '"')
+            .replaceAll(/&#039;/g, "'"),
           shuffledAnswers: question.shuffledAnswers.map((answer, index) => {
             if (question.type === "boolean") {
               return answer === "True" ? "Yes" : "No";

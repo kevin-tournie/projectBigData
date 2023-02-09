@@ -33,9 +33,11 @@ interface WrapperTableRowsProps {
 export const WrapperTableRows = styled.div<WrapperTableRowsProps>`
   display: flex;
   min-height: 500px;
+  max-height: 500px;
   flex-direction: column;
   gap: 10px;
   align-items: ${(props) => (props.isEmpty ? "center" : "flex-start")};
+  overflow-y: scroll;
 `;
 
 export const WrapperTableRow = styled.div`
@@ -49,6 +51,7 @@ export const WrapperCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   width: 200px;
 `;
 
