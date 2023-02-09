@@ -31,11 +31,16 @@ export const MyMicrophone = ({
     mic.reset();
     if (blob?.size) {
       processAudio(blob).then((text) => {
-        if (text === "Could not recognize the word") {
+        console.log(text);
+        text = text.replaceAll('"','');
+        console.log(text);
+        if (text === "Could not recognize the word" ||(text==="null") || (text === "Unrecognised")) {
+          console.log("error");
           setErrorMessage(text + "! Try again!");
           setShowAnswerTimeBar(true);
           mic.start();
         } else {
+          console.log("success");
           setAnsweredButton(text.trim().toUpperCase() + "button");
           uploadFileToBucketSupabase(
             blob,
