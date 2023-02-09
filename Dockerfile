@@ -13,7 +13,7 @@ COPY ./Models/requirements.txt /app/Models
 # Copy the backend files to the working directory in the container
 COPY ./server /app/server
 
-RUN apt-get update && apt-get install libsndfile1
+RUN apt-get update && apt-get install -y libsndfile1
 
 # Install required packages
 RUN pip install -r ./Models/requirements.txt
