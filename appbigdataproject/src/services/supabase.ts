@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+
 export interface IPlayerTotalScore {
   userId: number;
   username: string;
@@ -147,3 +148,8 @@ export const uploadFileToBucketSupabase = async (
     .upload(`${userId}/${filename}`, file);
   if (error) throw new Error("Error uploading file to bucket" + error.message);
 };
+
+// export const sendBulkDataToSupabase = async () => {
+//   const { error } = await supabase.from("Game").insert(data);
+//   if (error) throw new Error("Error sending bulk data to supabase");
+// };

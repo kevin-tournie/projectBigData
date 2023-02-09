@@ -33,7 +33,7 @@ export const RadarScores = ({ userHistory }: any) => {
       labels: categories.map((category) => category.name),
       datasets: [
         {
-          label: "Score",
+          label: "Average score",
           data: categories.map((category) => {
             const filteredDataByDifficultyAndCategory =
               filteredDataByDifficulty.filter(
