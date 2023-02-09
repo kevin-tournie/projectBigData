@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 # import googleApiOverfit
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+import json
 import lstm
+
 app = FastAPI()
 
 # pour lancer le serveur : uvicorn back:app --reload
@@ -35,8 +38,8 @@ async def process_audio(file: UploadFile):
     # do something with the audio blob, for example saving it to a file:
     with open("test.wav", "wb") as f:
         f.write(audio_blob)
-    # process =googleApiOverfit.googleApiOverfit(filename)
     process = lstm.predict(filename)
+    #process =googleApiOverfit.googleApiOverfit(filename)
     print(process)
     return process
     """
