@@ -16,10 +16,10 @@ COPY ./server /app/server
 RUN apt-get update && apt-get install -y libsndfile1
 
 # Install required packages
-RUN pip install -r ./Models/requirements.txt
+RUN pip install -r ../Models/requirements.txt
 
 # Set the command to run the endpoint
-CMD ["python", "back.py"]
+CMD ["python", "./back.py"]
 
 # Expose ports 5000
 EXPOSE 5000
