@@ -24,6 +24,7 @@ export const WrapperTableHeaders = styled.div`
   font-size: 20px;
   flex-direction: row;
   justify-content: space-around;
+  padding-right: 10px;
 `;
 
 interface WrapperTableRowsProps {

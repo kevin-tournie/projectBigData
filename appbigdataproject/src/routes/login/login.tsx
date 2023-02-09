@@ -46,7 +46,7 @@ export const Login = () => {
       >
         <WrapperTermsAndConditions>
           By signing in, you agree with our
-          <WrapperPrivacyPolicy href="privacy_policy.html">
+          <WrapperPrivacyPolicy href="/privacy_policy.html">
             privacy policy.
           </WrapperPrivacyPolicy>
         </WrapperTermsAndConditions>

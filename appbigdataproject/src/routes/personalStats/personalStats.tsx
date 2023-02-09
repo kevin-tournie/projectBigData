@@ -67,7 +67,7 @@ export const PersonalStats = () => {
         </WrapperTableRows>
         <Button
           variant="contained"
-          style={{ position: "absolute", bottom: "15px", right: "20px" }}
+          style={{ position: "absolute", top: "15px", right: "20px" }}
           onClick={() => navigation("../game/preparation")}
         >
           New game

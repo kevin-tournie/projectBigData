@@ -30,9 +30,6 @@ export const NavBar = () => {
         >
           {user_id !== "" ? "Disconnect" : "Sign in"}
         </Button>
-        <Button variant="text" onClick={() => navigation("/leaderboard")}>
-          Leaderboard
-        </Button>
       </Wrapper>
       <Outlet />
     </GlobalWrapper>

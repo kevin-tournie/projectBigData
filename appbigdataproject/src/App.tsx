@@ -4,7 +4,6 @@ import { Route, Routes, Navigate } from "react-router";
 import { AuthSecurity } from "./routes/authsecurity/authsecurity";
 
 import { Game } from "./routes/game/game";
-import { LeaderBoard } from "./routes/leaderboard/leaderboard";
 import { Login } from "./routes/login/login";
 import { NavBar } from "./routes/navbar/navbar";
 import { PersonalStats } from "./routes/personalStats/personalStats";
@@ -31,6 +30,7 @@ function App() {
           <Route path="/" element={<NavBar />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            {/* <Route path="/privatePolicy" element={<PrivatePolicy/>}/> */}
             <Route path="/:userId" element={<AuthSecurity />}>
               <Route
                 path="/:userId/personalStats"
@@ -42,7 +42,6 @@ function App() {
               />
               <Route path="/:userId/game/play" element={<Game />} />
             </Route>
-            <Route path="/leaderboard" element={<LeaderBoard />} />
             <Route path="/*" element={<Navigate to="/login" />} />
             <Route path="" element={<Navigate to="/login" />} />
           </Route>
