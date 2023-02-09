@@ -20,6 +20,7 @@ RUN pip install -r ../Models/requirements.txt
 
 # Set the command to run the endpoint
 CMD ["python", "./back.py"]
+# CMD ["uvicorn", "back:main", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
 
 # Expose ports 8080
 EXPOSE 8080
