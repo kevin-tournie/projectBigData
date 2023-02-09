@@ -1,7 +1,7 @@
 export const processAudio = async (blob: Blob) => {
   const formData = new FormData();
   formData.append("file",blob,"test.wav")
-  const data = await fetch("http://localhost:5000/api/processAudio", {
+  const data = await fetch(import.meta.env.VITE_BACKEND_BASE_URL + "/api/processAudio", {
     method: "POST",
     body: formData,
     mode:"cors",
