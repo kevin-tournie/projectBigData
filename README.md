@@ -1,5 +1,6 @@
 # projectBigData
 
+Développement d’un quiz multi utilisateurs.rices contrôlé par la voix  
 
 ## Getting started
 
@@ -29,6 +30,8 @@ This project aims to create a website to have a game to test your general knowle
 
 ## Conclusion  
 
+
+## Areas for improvement  
 
 
 ## Requirements  
