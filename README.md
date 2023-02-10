@@ -11,7 +11,7 @@ Using the microphone to answer the questions, you will be able to play alone or 
   - [Deployed version](#deployed-version)
   - [Local version](#local-version)
 - [Repository](#repository)
-- [Technical Stack](#technical-stack)
+- [Technical Stack and Architecture](#technical-stack-and-architecture)
 - [Data Collection](#data-collection)
 - [Data Preprocessing](#data-preprocessing)
 - [Speech Recognition Model](#speech-recognition-model)
@@ -27,14 +27,14 @@ Using the microphone to answer the questions, you will be able to play alone or 
 
 You can play the game on this link : 
 
->https://big-neural-quiz.vercel.app/  
+>https://bigneuralquiz.vercel.app/  
 (for as long as the server is running, which might not be for long !)
 
 To play the game, you need to create an account and verify it by clicking on the link sent to your email address. <br/>
 Then you can just start playing !
 
 ### Local version
-<br/>
+
 If you want to test this in local you need to : <br/>
 
 #### Front-end :  <!-- omit from toc -->
@@ -44,7 +44,6 @@ If you want to test this in local you need to : <br/>
     npm run dev
   
 #### Back-end : <!-- omit from toc -->
-<br/>
 Option 1 (docker): 
 
     docker build -t back . 
@@ -78,7 +77,7 @@ There are 3 main folders: <br />
 
 **3. server:** Backend REST API<br />
 
-## Technical Stack
+## Technical Stack and Architecture
 
 Frontend : ReactJS and Typescript<br />
 Backend : FastAPI <br />
@@ -86,6 +85,8 @@ Models : Tensorflow, Keras <br />
 Database : Supabase <br />
 Deployment : Heroku, Vercel <br />
 Questions Database : Open Trivia Database <br />
+
+![alt text](/images/architecture.png "Architecture")
 
 ## Data Collection
 
