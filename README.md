@@ -10,8 +10,6 @@ Using the microphone to answer the questions, you will be able to play alone or 
 - [How to play](#how-to-play)
   - [Deployed version](#deployed-version)
   - [Local version](#local-version)
-    - [Front-end :](#front-end-)
-    - [Back-end :](#back-end-)
 - [Repository](#repository)
 - [Technical Stack](#technical-stack)
 - [Data Collection](#data-collection)
@@ -33,19 +31,19 @@ You can play the game on this link :
 (for as long as the server is running, which might not be for long !)
 
 To play the game, you need to create an account and verify it by clicking on the link sent to your email address. <br/>
-Then you can just start playing.
+Then you can just start playing !
 
 ### Local version
 <br/>
 If you want to test this in local you need to : <br/>
 
-#### Front-end : 
+#### Front-end :  <!-- omit from toc -->
 
     cd ./appbigdataproject 
     npm install 
     npm run dev
   
-#### Back-end :
+#### Back-end : <!-- omit from toc -->
 <br/>
 Option 1 (docker): 
 
@@ -60,9 +58,9 @@ Option 2 (local):
 
 You will need to create a `.env` file in the `appbigdataproject` folder with the following content: <br/>
 
-VITE_SUPABASE_URL = your supabase url <br/>
-VITE_SUPABASE_KEY = your supabase key <br/>
-VITE_BACKEND_BASE_URL = http://localhost:8080 <br/>
+    VITE_SUPABASE_URL = your supabase url
+    VITE_SUPABASE_KEY = your supabase key
+    VITE_BACKEND_BASE_URL = http://localhost:8080
 
 Then you can just start playing by going to `http://localhost:8080/` in your browser. <br/>
 Enjoy ! <br/>
@@ -74,11 +72,11 @@ Enjoy ! <br/>
 
 There are 3 main folders: <br />
 
-**1) Models:** It contains the python functions for training, the models, the visualisations... <br />
+**1. Models:** It contains the python functions for training, the models, the visualisations... <br />
 
-**2) appbigdataproject:** Frontend application <br />
+**2. appbigdataproject:** Frontend application <br />
 
-**3) server:** Backend REST API<br />
+**3. server:** Backend REST API<br />
 
 ## Technical Stack
 
