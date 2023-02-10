@@ -1,6 +1,6 @@
 # projectBigData
 
-Développement d’un quiz multi utilisateurs.rices contrôlé par la voix  
+Développement d’un quiz multi utilisateurs.rices contrôlé par la voix
 
 ## Getting started
 
@@ -10,31 +10,49 @@ There are 3 repositories: <br />
 **3) server:** Backend <br />
 
 ## Name
-Project Big Data
+
+Project Big Data : Big Neural Quiz
 
 ## Description
-This project aims to create a website to have a game to test your general knowledge using the microphone to answer. To do this we mainly used ReactJS, TensorFlow. To get the questions we used Trivia database API. We used some ML in order to recognise the answers of the player. 
 
-## Data Collection  
+This project aims to create a website to have a game to test your general knowledge.
+Using the microphone to answer the questions, the player will be able to play alone or with friends.
 
+## Architecture
 
-## Speech Recognition Models  
+Frontend: ReactJS <br />
+Backend: FastAPI <br />
+Models: Tensorflow, Keras <br />
+Database: Supabase <br />
+Deployment: Heroku, Vercel <br />
+Questions: Open Trivia Database <br />
 
+## Data Collection
 
-## Quiz Game Application  
+The data used for training the models is the mozilla common voice dataset. <br />
+
+## Data Preprocessing
+
+The data is preprocessed in the following way: <br />
+
+- The audio files are converted to wav format, then resampled to 16kHz and mono. <br />
+- The audio files are then tranformed into spectrograms. <br />
+
+## Speech Recognition Models
+
+## Quiz Game Application
 
 ![alt text](https://github.com/kevin-tournie/projectBigData/blob/main/quiz_application_image.png)
+>>>>>>> 78b845f (readme)
 
 ## Deployment
 
-
-## Conclusion  
+## Conclusion
 
 # Final results
 Yes-No: ~90% Accuracy  
 1 - 2 - 3 - 4: ~75% Accuracy  
-
-## Areas for improvement  
+## Areas for improvement
 
 - Lightening the docker image
 - Increasing the size of the dataset
@@ -42,39 +60,37 @@ Yes-No: ~90% Accuracy
 - Dynamic learning: Using the audio recordings of the users to improve the existing models
 - Eventually find and training a more fitting model (instead of the LSTM model)
 - Adding a new category for the outputs: "Unrecognized"
-
-## Requirements  
-
+## Requirements
 
 ## Installation
+
 If you want to test this in local you need to :
 
-	Front :
-		- cd appbigdataproject
-		- npm install
-		- npm run dev
-	Back :
-		Option 1 (docker):
-			- docker pull @keven/back
-			- docker run -p 8080:8080 back
-		Option 2 (local):
-			- cd Modele
-			- pip install -r requirements.txt
-			- cd ..
-			- cd server
-			- py .\back.py
+    Front :
+    	- cd appbigdataproject
+    	- npm install
+    	- npm run dev
+    Back :
+    	Option 1 (docker):
+    		- docker pull @keven/back
+    		- docker run -p 8080:8080 back
+    	Option 2 (local):
+    		- cd Modele
+    		- pip install -r requirements.txt
+    		- cd ..
+    		- cd server
+    		- py .\back.py
 
 Now go to : http://127.0.0.1:5713 <br />
 Create an account and verify it before playing <br />
 
 Enjoy :)<br />
 
-
-## References  
-
+## Reference
 
 ## Authors and acknowledgment
-**Models:** <br />
+
+**Modèles:** <br />
 Simon HUANG <br />
 Abdel-Rahim MEZIDI <br />
 
