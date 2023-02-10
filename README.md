@@ -31,8 +31,8 @@ This project aims to create a website to have a game to test your general knowle
 ## Conclusion  
 
 # Final results
-Yes-No: ~90% Accuracy
-1 - 2 - 3 - 4: ~75% Accuracy
+Yes-No: ~90% Accuracy  
+1 - 2 - 3 - 4: ~75% Accuracy  
 
 ## Areas for improvement  
 
@@ -74,7 +74,7 @@ Enjoy :)<br />
 
 
 ## Authors and acknowledgment
-**Modèles:** <br />
+**Models:** <br />
 Simon HUANG <br />
 Abdel-Rahim MEZIDI <br />
 
