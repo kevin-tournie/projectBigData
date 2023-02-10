@@ -12,10 +12,10 @@ There are 3 repositories: <br />
 Project Big Data
 
 ## Description
-This project aim to create a website to have a game to test your general knowledge using the microphone to answer. To do this we mainly used ReactJS, TensorFlow. To get the questions we used Trivia database API. We used some ML in order to recognise the answer of the player. 
+This project aims to create a website to have a game to test your general knowledge using the microphone to answer. To do this we mainly used ReactJS, TensorFlow. To get the questions we used Trivia database API. We used some ML in order to recognise the answers of the player. 
 
 ## Installation
-If you wan to test this in local you need to :
+If you want to test this in local you need to :
 
 	Front :
 		- cd appbigdataproject
