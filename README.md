@@ -4,6 +4,7 @@
 This project aims to create an online game to test your general knowledge. <br/>
 Using the microphone to answer the questions, you will be able to play alone or with friends.
 
+![alt text](/images/question.gif "Question page")
 ## Table of contents <!-- omit from toc -->
 
 - [How to play](#how-to-play)
@@ -16,8 +17,8 @@ Using the microphone to answer the questions, you will be able to play alone or 
 - [Data Collection](#data-collection)
 - [Data Preprocessing](#data-preprocessing)
 - [Speech Recognition Model](#speech-recognition-model)
-- [Quiz Game Application](#quiz-game-application)
 - [Final results](#final-results)
+- [Quiz Game Application](#quiz-game-application)
 - [Possible improvements](#possible-improvements)
 - [Authors and acknowledgment](#authors-and-acknowledgment)
 
@@ -29,18 +30,18 @@ Using the microphone to answer the questions, you will be able to play alone or 
 You can play the game on this link : 
 
 >https://big-neural-quiz.vercel.app/  
-(for as long as the server is running, which is unkonwn)
+(for as long as the server is running, which might not be for long !)
 
 To play the game, you need to create an account and verify it by clicking on the link sent to your email address. <br/>
 Then you can just start playing.
 
 ### Local version
 <br/>
-If you want to test this in local you need to :
+If you want to test this in local you need to : <br/>
 
 #### Front-end : 
 
-    cd appbigdataproject 
+    cd ./appbigdataproject 
     npm install 
     npm run dev
   
@@ -48,8 +49,8 @@ If you want to test this in local you need to :
 <br/>
 Option 1 (docker): 
 
-    - docker build -t back . 
-    - docker run -p 8080:8080 back
+    docker build -t back . 
+    docker run -p 8080:8080 back
 Option 2 (local): 
 
     cd Modele
@@ -63,7 +64,8 @@ VITE_SUPABASE_URL = your supabase url <br/>
 VITE_SUPABASE_KEY = your supabase key <br/>
 VITE_BACKEND_BASE_URL = http://localhost:8080 <br/>
 
-
+Then you can just start playing by going to `http://localhost:8080/` in your browser. <br/>
+Enjoy ! <br/>
 
 
 
@@ -71,18 +73,21 @@ VITE_BACKEND_BASE_URL = http://localhost:8080 <br/>
 ## Repository
 
 There are 3 main folders: <br />
+
 **1) Models:** It contains the python functions for training, the models, the visualisations... <br />
+
 **2) appbigdataproject:** Frontend application <br />
+
 **3) server:** Backend REST API<br />
 
 ## Technical Stack
 
-Frontend: ReactJS <br />
-Backend: FastAPI <br />
-Models: Tensorflow, Keras <br />
-Database: Supabase <br />
-Deployment: Heroku, Vercel <br />
-Questions: Open Trivia Database <br />
+Frontend : ReactJS and Typescript<br />
+Backend : FastAPI <br />
+Models : Tensorflow, Keras <br />
+Database : Supabase <br />
+Deployment : Heroku, Vercel <br />
+Questions Database : Open Trivia Database <br />
 
 ## Data Collection
 
@@ -106,14 +111,14 @@ The model used for the speech recognition is the following: <br />
 
 ![alt text](/images/model.png "Model")
 
-## Quiz Game Application
-
-![alt text](/images/quiz_application_image.png "Connection page")
-
 ## Final results
 
 Yes-No: ~90% Accuracy  
 1 - 2 - 3 - 4: ~75% Accuracy
+## Quiz Game Application
+
+![alt text](/images/quiz_application_image.png "Connection page")
+
 
 ## Possible improvements
 
@@ -130,10 +135,11 @@ Yes-No: ~90% Accuracy
 Simon HUANG <br />
 Abdel-Rahim MEZIDI <br />
 
-**Cloud:** <br />
+**Backend & Cloud:** <br />
 Keven BIHAN <br />
 Martial GESSEAUME <br />
 Kévin TOURNIE <br />
 
 **Frontend:** <br />
 Kévin TOURNIE <br />
+
