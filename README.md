@@ -22,6 +22,7 @@ This project aims to create a website to have a game to test your general knowle
 
 ## Quiz Game Application  
 
+![alt text](https://github.com/kevin-tournie/projectBigData/blob/main/quiz_application_image.png)
 
 ## Deployment
 
