@@ -30,9 +30,18 @@ This project aims to create a website to have a game to test your general knowle
 
 ## Conclusion  
 
+# Final results
+Yes-No: ~90% Accuracy
+1 - 2 - 3 - 4: ~75% Accuracy
 
 ## Areas for improvement  
 
+- Lightening the docker image
+- Increasing the size of the dataset
+- Fine tuning the model
+- Dynamic learning: Using the audio recordings of the users to improve the existing models
+- Eventually find and training a more fitting model (instead of the LSTM model)
+- Adding a new category for the outputs: "Unrecognized"
 
 ## Requirements  
 
@@ -61,7 +70,7 @@ Create an account and verify it before playing <br />
 Enjoy :)<br />
 
 
-## Reference  
+## References  
 
 
 ## Authors and acknowledgment
