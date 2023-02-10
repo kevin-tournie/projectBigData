@@ -14,6 +14,25 @@ Project Big Data
 ## Description
 This project aims to create a website to have a game to test your general knowledge using the microphone to answer. To do this we mainly used ReactJS, TensorFlow. To get the questions we used Trivia database API. We used some ML in order to recognise the answers of the player. 
 
+## Data Collection  
+
+
+## Speech Recognition Models  
+
+
+## Quiz Game Application  
+
+
+## Deployment
+
+
+## Conclusion  
+
+
+
+## Requirements  
+
+
 ## Installation
 If you want to test this in local you need to :
 
@@ -36,6 +55,9 @@ Now go to : http://127.0.0.1:5713 <br />
 Create an account and verify it before playing <br />
 
 Enjoy :)<br />
+
+
+## Reference  
 
 
 ## Authors and acknowledgment
