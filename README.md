@@ -86,7 +86,7 @@ Database : Supabase <br />
 Deployment : Heroku, Vercel <br />
 Questions Database : Open Trivia Database <br />
 
-![alt text](/images/architecture.png "Architecture")
+![alt text](/images/architecture.PNG "Architecture")
 
 ## Data Collection
 
